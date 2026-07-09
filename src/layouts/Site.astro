@@ -354,6 +354,8 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     .about-section { padding: 48px 20px 72px; }
     .about-block { grid-template-columns: 1fr; gap: 28px; padding: 36px 0; }
     .about-block h2 { font-size: 30px; }
+    /* center the kicker badge once blocks stack on mobile */
+    .about-kicker { display: flex; width: fit-content; margin-inline: auto; }
   }
 
   /* custom basil cursor — on body only, so links/buttons keep pointer and inputs keep text */
