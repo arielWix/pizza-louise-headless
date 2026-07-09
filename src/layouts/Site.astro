@@ -384,7 +384,8 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     .menu-section, .product-section { padding-left: 20px; padding-right: 20px; }
     .builder-section { padding: 48px 20px 72px; }
     .builder-grid { grid-template-columns: 1fr; }
-    .pizza-visual { width: min(360px, 92vw); }
+    .pizza-visual { width: min(320px, 80vw); }
+    .pv-glow { inset: -18px; }  /* trim the decorative bleed so it can't push past the viewport on mobile */
     .gallery { grid-template-columns: 1fr; }
     .footer { flex-direction: column; gap: 14px; text-align: center; }
     .amb { opacity: 0.05; }  /* even more restrained on small screens */
