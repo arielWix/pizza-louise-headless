@@ -270,8 +270,13 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); background: #241D17; border: 1px solid rgba(226,112,58,0.5); color: #F0E7D8; font-size: 14.5px; font-weight: 600; padding: 12px 24px; border-radius: 999px; z-index: 100; box-shadow: 0 12px 36px rgba(0,0,0,0.5); animation: ecFadeUp 0.25s ease both; }
 
   @media (max-width: 720px) {
-    .nav { padding: 0 20px; }
-    .nav-links { gap: 18px; }
+    .nav { padding: 0 14px; height: 62px; gap: 10px; }
+    .nav-start { gap: 16px; min-width: 0; }
+    .nav-brand { gap: 10px; }
+    .nav-brand img { width: 34px; height: 34px; }
+    .nav-brand .name { font-size: 18px; }
+    .nav-links { gap: 14px; font-size: 14px; }
+    .cart-pill { padding: 8px 14px; font-size: 13.5px; flex-shrink: 0; }
     .hero { padding: 64px 20px 56px; }
     .hero h1 { font-size: 38px; }
     .menu-section, .product-section { padding-left: 20px; padding-right: 20px; }
@@ -280,6 +285,12 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     .pizza-visual { width: min(360px, 92vw); }
     .gallery { grid-template-columns: 1fr; }
     .footer { flex-direction: column; gap: 14px; text-align: center; }
+  }
+
+  @media (max-width: 430px) {
+    .nav-start { gap: 12px; }
+    .nav-links { gap: 12px; }
+    .nav-brand .name { display: none; }  /* keep the logo icon; drop the wordmark so the row never overflows */
   }
 
   @media (min-width: 1180px) {
