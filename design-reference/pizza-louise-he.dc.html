@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style data-omelette-injected>html,body{background:transparent}</style><script data-omelette-injected>(()=>{{const W=new URLSearchParams(location.search).get("theme");if(W==="light"||W==="dark"){document.documentElement.dataset.theme=W}}{const W=()=>{try{if(document.querySelector('meta[name="color-scheme"]'))return;const V=getComputedStyle(document.documentElement).getPropertyValue("color-scheme").trim();if(V&&V!=="normal")return;const z=(j)=>{if(!j)return null;const H=getComputedStyle(j).backgroundColor.match(/^rgba?\(\s*(\d+)[,\s]+(\d+)[,\s]+(\d+)(?:[,\s/]+([\d.]+%?))?\s*\)$/);if(!H)return null;const F=H[4]==null?1:parseFloat(H[4])/(H[4].endsWith("%")?100:1);if(F<0.99)return null;return[+H[1],+H[2],+H[3]]};const G=z(document.body)||z(document.documentElement);if(!G)return;const K=(j)=>{const H=j/255;return H<=0.04045?H/12.92:((H+0.055)/1.055)**2.4};const D=0.2126*K(G[0])+0.7152*K(G[1])+0.0722*K(G[2]);document.documentElement.style.setProperty("color-scheme",D<0.4?"dark":"light")}catch{}};if(document.readyState==="complete")W();else window.addEventListener("load",W)}var b=["https://claude.ai","https://preview.claude.ai","https://3c0ebd48-7595-41b3-b170-180a466fed7b.claudeusercontent.com"];var p=true;var O=30000;var n=3000;document.addEventListener("DOMContentLoaded",()=>{const W=window.Babel;const V="om-src-id";if(W&&W.registerPlugin&&!(W.availablePlugins&&W.availablePlugins[V])){W.registerPlugin(V,({types:D})=>({visitor:{JSXOpeningElement(j,H){const F=j.node;if(F.name&&F.name.type==="JSXMemberExpression")return;for(let Q=0;Q<F.attributes.length;Q++){const $=F.attributes[Q];if($.type==="JSXAttribute"&&$.name&&$.name.name==="data-om-id")return}const P=H.file&&H.file.opts&&H.file.opts.filename||"?";const R=F.loc&&F.loc.start;const J=`jsx:${P}:${F.start??0}:${R?R.line:0}:${R?R.column+1:0}`;F.attributes.push(D.jsxAttribute(D.jsxIdentifier("data-om-id"),D.stringLiteral(J)))}}}))}const z="om-text-extract";let G=false;if(p&&W&&W.registerPlugin&&!(W.availablePlugins&&W.availablePlugins[z])){const D=window.React;if(D&&D.useSyncExternalStore&&D.createElement){G=true;const j={};const H=new Set;let F=0;window.__omTextO=j;window.__omTextSet=(J)=>{for(const Q in J){const $=J[Q];if($==null)delete j[Q];else j[Q]=$}F++;H.forEach((Q)=>Q())};const P=(J)=>{H.add(J);return()=>H.delete(J)};const R=()=>F;window.__OmT=function J(Q){D.useSyncExternalStore(P,R,R);return D.createElement("span",{"data-om-text":Q.i,className:"__om-t"},Q.i in j?j[Q.i]:Q.children)};W.registerPlugin(z,({types:J})=>{const Q={style:1,script:1,noscript:1,textarea:1,title:1,option:1,text:1,tspan:1,textPath:1};const $={placeholder:1,alt:1,title:1,label:1,"aria-label":1,"aria-description":1,"aria-placeholder":1};const Y=(q,M)=>J.logicalExpression("??",J.memberExpression(J.logicalExpression("||",J.memberExpression(J.identifier("window"),J.identifier("__omTextO")),J.objectExpression([])),J.stringLiteral(q),true),M);const Z=(q)=>q.file&&q.file.opts&&q.file.opts.filename||"?";const B=(q)=>q.file&&q.file.code||"";const U=(q,M)=>{const L=(X)=>X&&X.start!=null&&X.end!=null&&(X.type==="StringLiteral"||X.type==="TemplateLiteral"&&X.expressions.length===0)?[X.start,X.end]:null;const N=L(M);if(N)return N;if(M&&M.type==="Identifier"){const X=q.scope.getBinding(M.name);if(X&&X.constant&&X.path.node.type==="VariableDeclarator"){return L(X.path.node.init)}}return null};const x=(q,M,L)=>{const N=q.node;let X=false;const f=(w,A)=>{X=true;return J.jsxElement(J.jsxOpeningElement(J.jsxIdentifier("__OmT"),[J.jsxAttribute(J.jsxIdentifier("i"),J.stringLiteral(w))],false),J.jsxClosingElement(J.jsxIdentifier("__OmT")),[A],false)};const C=N.children.map((w)=>{if(w.type==="JSXText"){if(w.start==null||w.end==null)return w;const A=L.slice(w.start,w.end);const k=A.length-A.trimStart().length;const u=A.length-A.trimEnd().length;if(k+u>=A.length)return w;return f(`txt:${M}:${w.start+k}:${w.end-u}`,w)}if(w.type==="JSXExpressionContainer"){const A=U(q,w.expression);if(A)return f(`str:${M}:${A[0]}:${A[1]}`,w)}return w});if(X)N.children=C};return{visitor:{JSXOpeningElement(q,M){const L=q.node;const N=Z(M);const X={};for(let f=0;f<L.attributes.length;f++){const C=L.attributes[f];if(C.type!=="JSXAttribute"||!C.name)continue;const w=C.name.name;if(!$[w])continue;if(!C.value||C.value.type!=="StringLiteral")continue;if(C.value.start==null||C.value.end==null)continue;const A=`txt:${N}:${C.value.start}:${C.value.end}`;X[w]=A;C.value=J.jsxExpressionContainer(Y(A,J.stringLiteral(C.value.value)))}if(Object.keys(X).length){L.attributes.push(J.jsxAttribute(J.jsxIdentifier("data-om-text-attrs"),J.stringLiteral(JSON.stringify(X))))}},JSXElement(q,M){const L=q.node.openingElement;const N=L&&L.name&&L.name.name;if(N==="__OmT")return;if(typeof N==="string"&&Q[N])return;x(q,Z(M),B(M))},JSXFragment(q,M){x(q,Z(M),B(M))}}}})}}const K=G?["transform-react-jsx-source",V,z]:["transform-react-jsx-source",V];document.querySelectorAll('script[type="text/babel"],script[type="text/jsx"]').forEach((D,j)=>{const H=D.getAttribute("data-plugins")||"";const F=K.filter((P)=>H.indexOf(P)<0);if(F.length){D.setAttribute("data-plugins",H?`${H},${F.join(",")}`:F.join(","))}if(!D.hasAttribute("data-filename")){D.setAttribute("data-filename",D.getAttribute("src")||`inline-${j}`)}})});var v=window.parent;var g="not editable here — open the project in the Claude Design editor to save";var d=()=>Promise.resolve({persisted:false,noHost:true,reason:g});var S=d;var h="data/storage.json";var i=()=>{try{const W=new URL(document.baseURI);const V=W.pathname.match(/\/projects\/([^/]+)\/serve\//);if(V)return V[1];return W.hostname.split(".")[0]||""}catch{return location.hostname.split(".")[0]||""}};var o=()=>{try{const W=new URL(document.baseURI);const V=W.pathname.indexOf("/serve/");if(V>=0)return W.origin+W.pathname.slice(0,V+"/serve/".length)+h}catch{}return"./"+h};var I=null;var _=()=>{if(!I){I=fetch(o(),{cache:"no-store"}).then((W)=>{if(W.ok)return W.text();return W.status===404?"":null}).catch(()=>null).then((W)=>{if(W===null){I=null;return null}const V=new Map;if(!W)return V;let z;try{z=JSON.parse(W)}catch{console.warn("[omelette.storage] "+h+" is not valid JSON; treating the store as unreadable so a save cannot overwrite the "+"hand-edited bytes. Fix the JSON (or delete the file) to re-enable persistence.");I=null;return null}if(z===null||typeof z!=="object"||Array.isArray(z)){console.warn("[omelette.storage] "+h+" doesn't hold a JSON object; treating the store as unreadable so a save cannot "+"overwrite the hand-edited bytes. Make the top level a JSON object to re-enable persistence.");I=null;return null}const G=z;if("data"in G){const K=G.data;if(K===null||typeof K!=="object"||Array.isArray(K)){console.warn("[omelette.storage] "+h+' has a "data" field that is not a JSON object; treating the store as unreadable so a '+'save cannot overwrite the hand-edited bytes. Make "data" a JSON object to re-enable persistence.');I=null;return null}const D=G._meta;const j=D!==null&&typeof D==="object"?D.project:undefined;if(typeof j==="string"&&j!==""&&j!==i())return V;for(const H of Object.keys(K))V.set(H,K[H]);return V}for(const K of Object.keys(G)){if(K!=="_meta")V.set(K,G[K])}return V})}return I};var y=(W)=>S(h,JSON.stringify({_meta:{project:i(),version:1},data:Object.fromEntries(W)},null,2));var m=Promise.resolve();var T=(W)=>{const V=m.then(W);m=V.then(()=>{return},()=>{return});return V};var s=/sk-(?:ant-)?[A-Za-z0-9_-]{16,}|AKIA[0-9A-Z]{16}|gh[pousr]_[A-Za-z0-9]{20,}|xox[a-z]-[A-Za-z0-9][A-Za-z0-9-]{9,}|AIza[0-9A-Za-z_-]{30,}|-----BEGIN [A-Z ]*PRIVATE KEY-----/;var a=/password|passwd|secret|api[_-]?key|access[_-]?token|auth[_-]?token|credential/i;var r=(W,V,z)=>{if(s.test(V)||a.test(W)&&typeof z==="string"&&z.length>=8){console.warn('[omelette.storage] the value for "'+W+'" looks like a credential. The storage file is a plaintext project file — visible to '+"everyone with project access and copied when the project is duplicated. Do not store secrets here.")}};var l={persisted:false,reason:"could not load the existing store — not overwriting it"};var c={persisted:false,reason:"stored value changed since a failed read — re-read this key before saving"};var E=new Set;var t={get:(W)=>{if(typeof W!=="string"){return Promise.reject(new TypeError("storage.get: key must be a string"))}return T(_).then((V)=>{if(V===null){E.add(W);return null}E.delete(W);if(!V.has(W))return null;const z=V.get(W);return z==null?null:JSON.parse(JSON.stringify(z))})},set:(W,V)=>{if(typeof W!=="string"){return Promise.reject(new TypeError("storage.set: key must be a string"))}let z;try{z=JSON.stringify(V)}catch(K){return Promise.reject(new TypeError("storage.set: value must be JSON-serializable ("+String(K)+")"))}if(z===undefined){return Promise.reject(new TypeError("storage.set: value must be JSON-serializable"))}r(W,z,V);const G=JSON.parse(z);return T(()=>_().then((K)=>{if(K===null)return l;if(E.has(W)){if(K.has(W))return c;E.delete(W)}K.set(W,G);return y(K)}))},delete:(W)=>{if(typeof W!=="string"){return Promise.reject(new TypeError("storage.delete: key must be a string"))}return T(()=>_().then((V)=>{if(V===null)return l;if(E.has(W)){if(V.has(W))return c;E.delete(W)}V.delete(W);return y(V)}))},keys:()=>T(_).then((W)=>W===null?[]:Array.from(W.keys()))};window.omelette={writeFile:(W,V)=>S(W,V).then((z)=>{if(!z.persisted&&!z.noHost){throw new Error(z.reason||"write failed")}}),storage:t};if(v&&v!==window){const W=(J,Q)=>{try{v.postMessage({__omelette_log:true,type:J,data:Q},"*")}catch{}};["log","warn","error"].forEach((J)=>{const Q=console[J];console[J]=(...$)=>{const Y=$.map((Z)=>{try{return typeof Z==="object"?JSON.stringify(Z):String(Z)}catch{try{return String(Z)}catch{return"[unstringifiable]"}}}).join(" ");W(J,Y);Q.apply(console,$)}});window.addEventListener("error",(J)=>{const Q=J.target;if(Q&&Q!==window&&Q.tagName){const $=Q.src||Q.href||"";W("resource_error",`${Q.tagName} failed to load: ${$}`)}else{W("error",`${J.message||"Unknown error"} at ${J.filename||"?"}:${J.lineno||0}:${J.colno||0}`)}},true);window.addEventListener("unhandledrejection",(J)=>{const Q=J.reason;const $=Q instanceof Error?`${Q.message} ${Q.stack}`:String(Q);W("error",`Unhandled rejection: ${$}`)});window.addEventListener("click",(J)=>{if(J.defaultPrevented||J.button!==0)return;if(J.metaKey||J.ctrlKey||J.shiftKey||J.altKey)return;const Q=J.composedPath?J.composedPath():[];const $=["button","input","select","textarea","summary","label"];let Y=null;for(const x of Q){if(!(x instanceof Element))continue;if(x.localName==="a"){if(!(x instanceof HTMLAnchorElement))return;Y=x;break}if($.indexOf(x.localName)!==-1)return}if(!Y)return;if(Y.isContentEditable)return;const Z=Y.closest("[contenteditable]");if(Z&&Z.getAttribute("contenteditable")!=="false")return;const B=(Y.getAttribute("target")||"_self").toLowerCase();if(B!=="_self"&&B!=="_top"&&B!=="_parent")return;let U;try{U=new URL(Y.href)}catch{return}if(U.protocol!=="http:"&&U.protocol!=="https:")return;if(location.origin==="null")return;if(U.origin===location.origin)return;J.preventDefault();window.open(U.href,"_blank","noopener,noreferrer")});const V=()=>{try{v.postMessage({type:"omelette:height",height:document.documentElement.scrollHeight},"*")}catch{}};if(window.ResizeObserver)new ResizeObserver(V).observe(document.documentElement);const z=()=>{V();if(!document.querySelector('script[type="text/babel"],script[type="text/jsx"]'))return;const J=()=>document.getElementById("root")||document.querySelector("body > div[id]");const Q=J()?.firstElementChild??null;let $=0;const Y=()=>{const Z=J();if(Z&&Z.firstElementChild!==Q||++$>30){V();return}setTimeout(Y,100)};setTimeout(Y,100)};if(document.readyState==="complete")z();else window.addEventListener("load",z);const G={};let K=0;const D=(J)=>new Promise((Q,$)=>{if(!b.length){$(new Error("claude.complete: no parent origin"));return}const Y=`c${++K}`;const Z=()=>setTimeout(()=>{delete G[Y];$(new Error(`claude.complete: no data for ${O/1000}s`))},O);const B=Z();G[Y]={resolve:Q,reject:$,text:"",t:B,arm:Z};try{for(const U of b){v.postMessage({__om_api:true,id:Y,body:J},U)}}catch(U){clearTimeout(B);delete G[Y];$(U)}});const j=8;const H=async(J,Q)=>{if(!Array.isArray(J.messages)){throw new Error("claude.complete: tools require a messages array")}const $=J.messages.slice();const Y={...J,tools:J.tools.map((U)=>{if(U===null||typeof U!=="object")return U;const x={};for(const q of Object.keys(U)){if(typeof U[q]!=="function")x[q]=U[q]}return x})};const Z=Y.tool_choice;const B=Z!=null&&(Z.type==="any"||Z.type==="tool")?{...Y,tool_choice:Z.disable_parallel_tool_use!==undefined?{type:"auto",disable_parallel_tool_use:Z.disable_parallel_tool_use}:{type:"auto"}}:Y;for(let U=0;U<j;U++){const x=await D({...U===0?Y:B,messages:$});const q=x.message;const M=q&&Array.isArray(q.content)?q.content:null;const L=M?M.filter((X)=>X?.type==="tool_use"):[];if(q?.stop_reason!=="tool_use"||L.length===0){return x.text}const N=[];for(const X of L){const f=Q.get(X.name);if(!f){N.push({type:"tool_result",tool_use_id:X.id,content:`no handler for tool "${X.name}"`,is_error:true});continue}try{const C=await f(X.input);const w=typeof C==="string"?C:R(C)??"";N.push({type:"tool_result",tool_use_id:X.id,content:w})}catch(C){N.push({type:"tool_result",tool_use_id:X.id,content:String(C?.message??C??"tool handler failed"),is_error:true})}}$.push({role:"assistant",content:M},{role:"user",content:N})}throw new Error(`claude.complete: exceeded ${j} tool turns`)};window.claude={complete(J){const Q=J;if(Q!==null&&typeof Q==="object"&&Array.isArray(Q.tools)&&Q.tools.some(($)=>$!==null&&typeof $==="object"&&typeof $.run==="function")){const $=new Map;for(const Y of Q.tools){if(Y!==null&&typeof Y==="object"&&typeof Y.run==="function"){$.set(String(Y.name),Y.run)}}return H(Q,$)}return D(J).then(($)=>$.text)}};const F={};let P=0;S=(J,Q)=>new Promise(($)=>{if(!b.length){$({persisted:false,noHost:true,reason:g});return}const Y=`f${++P}`;const Z=setTimeout(()=>{delete F[Y];$({persisted:false,noHost:true,reason:g})},n);F[Y]={settle:$,t:Z};try{for(const B of b){v.postMessage({__om_file:true,id:Y,op:"write",path:J,content:Q},B)}}catch{clearTimeout(Z);delete F[Y];$({persisted:false,noHost:true,reason:g})}});const R=(J)=>{try{return JSON.stringify(J)}catch{return JSON.stringify(String(J))}};window.addEventListener("message",(J)=>{if(b.indexOf(J.origin)<0)return;if(J.source!==v)return;const Q=J.data;if(!Q)return;if(Q.type==="omelette-preview-refresh"){if(typeof Q.token!=="string"||!/^[0-9a-f.-]+(\.(rc|pr-[0-9]+))?(\.[0-9]+\.[0-9a-f]{16})?$/.test(Q.token))return;const Z=Math.max(1,Math.floor((Q.expiresAt||0)-Date.now()/1000));document.cookie="__Host-omelette-preview="+Q.token+"; Path=/; Secure; SameSite=None; Partitioned; Max-Age="+Z;return}if(Q.__om_file_r){const Z=F[Q.id];if(!Z)return;clearTimeout(Z.t);delete F[Q.id];Z.settle(Q.ok?{persisted:true}:{persisted:false,reason:Q.error||"write failed"});return}if(Q.__om_api_r){const Z=G[Q.id];if(!Z)return;if(Q.error!=null){clearTimeout(Z.t);delete G[Q.id];Z.reject(new Error(Q.error));return}if(Q.chunk!=null){clearTimeout(Z.t);Z.t=Z.arm();Z.text+=Q.chunk;return}if(Q.done){clearTimeout(Z.t);delete G[Q.id];Z.resolve({text:Q.text!=null?Q.text:Z.text,message:Q.message});return}return}if(!Q.__om_eval)return;const $=Q;const Y=(Z)=>{J.source.postMessage({...Z,__om_eval_r:1,id:$.id},J.origin)};try{const Z=(0,eval)($.code);if(Z&&typeof Z.then==="function"){Z.then((B)=>Y({ok:1,v:R(B)}),(B)=>Y({ok:0,e:String(B)}))}else{Y({ok:1,v:R(Z)})}}catch(Z){Y({ok:0,e:String(Z)})}})}})();
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #14100D; }
+  * { box-sizing: border-box; }
+  a { color: #E8DCC8; text-decoration: none; }
+  a:hover { color: #E2703A; }
+  ::selection { background: rgba(226,112,58,0.35); }
+  @keyframes ecFadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes ecPop { 0% { transform: scale(0.4); opacity: 0; } 70% { transform: scale(1.12); } 100% { transform: scale(1); opacity: 1; } }
+</style>
+</helmet>
+
+<div dir="rtl" style="min-height:100vh; overflow-x:clip; background:#14100D; color:#F0E7D8; font-family:'Assistant', sans-serif; -webkit-font-smoothing:antialiased;">
+
+  <!-- ============ NAV ============ -->
+  <header style="position:sticky; top:0; z-index:50; display:flex; align-items:center; justify-content:space-between; padding:0 48px; height:76px; background:rgba(20,16,13,0.85); backdrop-filter:blur(16px); border-bottom:1px solid rgba(240,231,216,0.08);">
+    <div onClick="{{ goHome }}" style="display:flex; align-items:center; gap:14px; cursor:pointer;">
+      <img src="uploads/OnPaste.20250630-082108.png" alt="Pizza Louise" style="width:44px; height:44px; border-radius:10px; object-fit:cover;">
+      <div style="font-family:'Frank Ruhl Libre', serif; font-size:22px; font-weight:700;">פיצה לואיז</div>
+    </div>
+    <nav style="display:flex; align-items:center; gap:32px; font-size:15px; font-weight:600;">
+      <a href="#" onClick="{{ goHome }}" style="color:#B4A692;" style-hover="color:#F0E7D8;">תפריט</a>
+      <a href="#" style="color:#B4A692;" style-hover="color:#F0E7D8;">הסיפור שלנו</a>
+      <a href="#" style="color:#B4A692;" style-hover="color:#F0E7D8;">סניפים</a>
+      <div style="display:inline-flex; align-items:center; gap:8px; background:{{ accent }}; color:#14100D; padding:10px 20px; border-radius:999px; font-weight:700; cursor:pointer; transition:transform 0.15s ease, box-shadow 0.15s ease;" style-hover="transform:translateY(-1px); box-shadow:0 6px 20px rgba(226,112,58,0.35);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+        סל · {{ cartLabel }}
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ HOME: MENU ============ -->
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <section style="position:relative; padding:96px 48px 88px; text-align:center; overflow:hidden;">
+      <div style="position:absolute; inset:0; background-image:url('uploads/WhatsApp Image 2025-12-30 at 15.55.10 (1).jpeg'); background-size:cover; background-position:center 35%;"></div>
+      <div style="position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,16,13,0.72) 0%, rgba(20,16,13,0.82) 60%, #14100D 100%);"></div>
+      <div style="position:relative; max-width:1280px; margin:0 auto;">
+      <div style="display:inline-flex; align-items:center; gap:8px; font-size:13px; font-weight:700; letter-spacing:0.08em; color:{{ accent }}; border:1px solid rgba(226,112,58,0.35); padding:7px 16px; border-radius:999px; margin-bottom:24px;">
+        כשר חלבי · ניו יורק סטייל
+      </div>
+      <h1 style="font-family:'Frank Ruhl Libre', serif; font-weight:700; font-size:56px; line-height:1.1; margin:0 0 18px;">
+        הטעם האמיתי של <em style="color:{{ accent }}; font-style:normal;">ניו יורק</em>
+      </h1>
+      <p style="font-size:18px; line-height:1.7; color:#B4A692; max-width:56ch; margin:0 auto; text-wrap:pretty;">
+        משולשים ענקיים ברוח מנהטן, בצק שתופח 48 שעות, ותנור לוהט שנותן את הקראנץ' המושלם. בחרו מגש — ותרכיבו אותו בדיוק כמו שאתם אוהבים.
+      </p>
+      </div>
+    </section>
+    <div style="height:16px; background-image:url('uploads/OnPaste.20250630-082138.png'); background-size:auto 220px; background-position:center; opacity:0.9;"></div>
+
+    <section style="max-width:1280px; margin:0 auto; padding:24px 48px 96px;">
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:28px;">
+        <sc-for list="{{ pizzas }}" as="pz" hint-placeholder-count="6">
+          <div onClick="{{ pz.open }}" style="background:#1D1712; border:1px solid rgba(240,231,216,0.1); border-radius:20px; overflow:hidden; cursor:pointer; transition:transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease; animation:ecFadeUp 0.5s ease both;" style-hover="transform:translateY(-4px); border-color:rgba(226,112,58,0.45); box-shadow:0 18px 44px rgba(0,0,0,0.4);">
+            <div style="position:relative; height:210px;">
+              <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ pz.slotId }}" shape="rect" placeholder="{{ pz.placeholder }}" src="{{ pz.src }}" hint-size="100%,210px" style="position:absolute; inset:0;"></x-import>
+            </div>
+            <div style="padding:22px 24px 24px;">
+              <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:8px;">
+                <div style="font-family:'Frank Ruhl Libre', serif; font-size:23px; font-weight:700;">{{ pz.name }}</div>
+                <div style="font-size:14px; color:{{ accent }}; font-weight:700; white-space:nowrap;">החל מ־{{ pz.fromPrice }}</div>
+              </div>
+              <p style="font-size:14.5px; line-height:1.6; color:#B4A692; margin:0 0 18px; min-height:44px;">{{ pz.desc }}</p>
+              <div style="display:flex; align-items:center; gap:8px; font-size:14.5px; font-weight:700; color:{{ accent }};">
+                להרכבת המגש
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1);"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-top:64px;">
+        <img src="uploads/WhatsApp Image 2025-12-30 at 15.55.09.jpeg" alt="קינוחים מהתנור" style="width:100%; height:240px; object-fit:cover; border-radius:16px;">
+        <img src="uploads/WhatsApp Image 2025-12-30 at 15.55.10.jpeg" alt="מאפה שוקולד" style="width:100%; height:240px; object-fit:cover; border-radius:16px;">
+        <img src="uploads/WhatsApp Image 2025-12-30 at 15.55.10 (2).jpeg" alt="הבר שלנו" style="width:100%; height:240px; object-fit:cover; border-radius:16px;">
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ============ PRODUCT PAGE ============ -->
+  <sc-if value="{{ isProduct }}" hint-placeholder-val="{{ false }}">
+    <section style="max-width:1280px; margin:0 auto; padding:40px 48px 32px;">
+      <div style="display:flex; align-items:center; gap:8px; font-size:14px; color:#8F8270; margin-bottom:32px;">
+        <a href="#" onClick="{{ goHome }}" style="color:#8F8270;" style-hover="color:{{ accent }};">תפריט</a>
+        <span>/</span>
+        <span style="color:#F0E7D8; font-weight:600;">{{ selName }}</span>
+      </div>
+
+      <div style="display:grid; grid-template-columns:minmax(320px, 1fr) minmax(360px, 1.1fr); gap:56px; align-items:start;">
+        <div style="position:relative; height:400px;">
+          <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="{{ selSlotId }}" shape="rounded" radius="20" placeholder="{{ selPlaceholder }}" src="{{ selSrc }}" hint-size="100%,400px" style="position:absolute; inset:0;"></x-import>
+        </div>
+        <div style="animation:ecFadeUp 0.4s ease both;">
+          <h1 style="font-family:'Frank Ruhl Libre', serif; font-weight:700; font-size:46px; margin:0 0 14px;">{{ selName }}</h1>
+          <div style="font-family:'Frank Ruhl Libre', serif; font-size:34px; color:{{ accent }}; margin-bottom:20px;">{{ selPriceLabel }}</div>
+          <p style="font-size:16.5px; line-height:1.75; color:#B4A692; margin:0 0 30px; max-width:52ch; text-wrap:pretty;">{{ selDesc }}</p>
+
+          <div style="font-size:13px; font-weight:700; letter-spacing:0.06em; color:#8F8270; margin-bottom:12px;">גודל מגש</div>
+          <div style="display:flex; gap:12px; margin-bottom:32px;">
+            <button onClick="{{ pickM }}" style="flex:1; max-width:200px; background:{{ sizeMBg }}; border:1px solid {{ sizeMBorder }}; color:#F0E7D8; border-radius:14px; padding:14px; cursor:pointer; font-family:'Assistant', sans-serif; text-align:center; transition:all 0.16s ease;" style-hover="border-color:rgba(226,112,58,0.5);">
+              <div style="font-size:16px; font-weight:700;">M · אישי</div>
+              <div style="font-size:13.5px; color:#B4A692; margin-top:2px;">{{ selPriceM }}</div>
+            </button>
+            <button onClick="{{ pickL }}" style="flex:1; max-width:200px; background:{{ sizeLBg }}; border:1px solid {{ sizeLBorder }}; color:#F0E7D8; border-radius:14px; padding:14px; cursor:pointer; font-family:'Assistant', sans-serif; text-align:center; transition:all 0.16s ease;" style-hover="border-color:rgba(226,112,58,0.5);">
+              <div style="font-size:16px; font-weight:700;">L · משפחתי</div>
+              <div style="font-size:13.5px; color:#B4A692; margin-top:2px;">{{ selPriceL }}</div>
+            </button>
+          </div>
+
+          <div style="display:flex; gap:28px; border-top:1px solid rgba(240,231,216,0.1); padding-top:22px; font-size:14px; color:#8F8270;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ accent }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+              48 שעות התפחה קרה
+            </div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="{{ accent }}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+              תנור אבן לוהט
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TOPPINGS BUILDER ===== -->
+    <section style="border-top:1px solid rgba(240,231,216,0.08); background:linear-gradient(180deg, #181310 0%, #14100D 100%); padding:64px 48px 96px; margin-top:32px;">
+      <div style="max-width:1280px; margin:0 auto;">
+        <div style="text-align:center; margin-bottom:48px;">
+          <h2 style="font-family:'Frank Ruhl Libre', serif; font-weight:700; font-size:38px; margin:0 0 10px;">רוצים תוספות?</h2>
+          <p style="font-size:16px; color:#B4A692; margin:0;">בחרו רבע — או את כל המגש — והוסיפו תוספות בדיוק איפה שבא לכם.</p>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:40px; align-items:start;">
+
+          <!-- pizza visual -->
+          <div style="display:flex; flex-direction:column; align-items:center; gap:28px;">
+            <div style="position:relative; width:min(440px, 92vw); aspect-ratio:1;">
+              <div style="position:absolute; inset:-40px; border-radius:50%; background:radial-gradient(circle, rgba(226,112,58,0.12) 0%, transparent 65%); pointer-events:none;"></div>
+              <div style="position:absolute; inset:0; border-radius:50%; background:radial-gradient(circle at 38% 34%, #E3A968 0%, #C9853E 55%, #A05F24 100%); box-shadow:0 24px 60px rgba(0,0,0,0.5), inset 0 -6px 18px rgba(0,0,0,0.25);"></div>
+              <div style="position:absolute; inset:26px; border-radius:50%; background:radial-gradient(circle at 42% 38%, #C4502E 0%, #A83A20 70%, #8E2E18 100%);"></div>
+              <div style="position:absolute; inset:34px; border-radius:50%; background:radial-gradient(circle at 40% 36%, #F2D48A 0%, #E9BE62 50%, #D9A344 100%); box-shadow:inset 0 2px 12px rgba(255,240,190,0.5), inset 0 -8px 20px rgba(160,90,20,0.3);"></div>
+
+              <div style="position:absolute; inset:0; pointer-events:none; z-index:3;">
+                <sc-for list="{{ placed }}" as="t" hint-placeholder-count="0">
+                  <div style="position:absolute; left:{{ t.left }}; top:{{ t.top }}; transform:translate(-50%,-50%); animation:ecPop 0.3s ease both;">
+                    <sc-if value="{{ t.isMush }}" hint-placeholder-val="{{ false }}">
+                      <svg width="30" height="30" viewBox="0 0 30 30"><path d="M4 14 C4 7 9 3.5 15 3.5 C21 3.5 26 7 26 14 C26 15.6 24.8 16.4 23 16.4 L7 16.4 C5.2 16.4 4 15.6 4 14 Z" fill="#E8DCC4" stroke="#B9A67F" stroke-width="1.4"></path><path d="M11.5 16.4 L11 24 C11 25.6 12.5 26.6 15 26.6 C17.5 26.6 19 25.6 19 24 L18.5 16.4 Z" fill="#D9C9A6" stroke="#B9A67F" stroke-width="1.4"></path></svg>
+                    </sc-if>
+                    <sc-if value="{{ t.isOlive }}" hint-placeholder-val="{{ false }}">
+                      <div style="width:20px; height:20px; border-radius:50%; background:#2A2226; border:5px solid #3E3038; box-shadow:inset 0 0 3px rgba(0,0,0,0.7), 0 1px 3px rgba(0,0,0,0.35);"></div>
+                    </sc-if>
+                    <sc-if value="{{ t.isOnion }}" hint-placeholder-val="{{ false }}">
+                      <div style="width:26px; height:26px; border-radius:50%; border:4px solid #A465A8; background:transparent; box-shadow:0 1px 3px rgba(0,0,0,0.3), inset 0 0 0 2px rgba(230,190,235,0.5);"></div>
+                    </sc-if>
+                    <sc-if value="{{ t.isCherry }}" hint-placeholder-val="{{ false }}">
+                      <div style="width:22px; height:22px; border-radius:50%; background:radial-gradient(circle at 36% 32%, #E86A4A 0%, #C13A22 65%, #9E2C16 100%); box-shadow:inset 0 -2px 4px rgba(0,0,0,0.3), 0 1px 3px rgba(0,0,0,0.3);"></div>
+                    </sc-if>
+                    <sc-if value="{{ t.isBasil }}" hint-placeholder-val="{{ false }}">
+                      <svg width="30" height="30" viewBox="0 0 30 30" style="transform:rotate({{ t.rot }}deg);"><path d="M15 2 C22 6 25 13 23 21 C21.5 26 17 28 15 28 C13 28 8.5 26 7 21 C5 13 8 6 15 2 Z" fill="#5E8A3E" stroke="#3F6428" stroke-width="1.4"></path><path d="M15 5 L15 25" stroke="#3F6428" stroke-width="1.2"></path></svg>
+                    </sc-if>
+                    <sc-if value="{{ t.isFeta }}" hint-placeholder-val="{{ false }}">
+                      <div style="width:18px; height:16px; background:linear-gradient(160deg, #F5EFE0 0%, #E3D9C2 100%); border-radius:3px; transform:rotate({{ t.rot }}deg); box-shadow:0 1px 3px rgba(0,0,0,0.35);"></div>
+                    </sc-if>
+                    <sc-if value="{{ t.isHot }}" hint-placeholder-val="{{ false }}">
+                      <svg width="26" height="26" viewBox="0 0 30 30" style="transform:rotate({{ t.rot }}deg);"><path d="M8 6 C6 10 6 16 9 21 C11 24 15 26 19 24 C23 22 25 17 24 12 C23.4 9 21 6.5 18 6 C14.5 5.4 10 4.5 8 6 Z" fill="#C93A28" stroke="#8E2416" stroke-width="1.4"></path><path d="M8 6 C7 4 8 2.5 10 2.5" fill="none" stroke="#4E7A32" stroke-width="2.2" stroke-linecap="round"></path></svg>
+                    </sc-if>
+                  </div>
+                </sc-for>
+              </div>
+
+              <div style="position:absolute; left:50%; top:26px; bottom:26px; width:2px; margin-left:-1px; background:rgba(20,16,13,0.28); z-index:4; pointer-events:none;"></div>
+              <div style="position:absolute; top:50%; left:26px; right:26px; height:2px; margin-top:-1px; background:rgba(20,16,13,0.28); z-index:4; pointer-events:none;"></div>
+
+              <div style="position:absolute; inset:0; border-radius:50%; overflow:hidden; z-index:5;">
+                <button onClick="{{ pickTL }}" aria-label="רבע שמאלי עליון" style="position:absolute; left:0; top:0; width:50%; height:50%; border:none; cursor:pointer; background:{{ tlBg }}; border-radius:100% 0 0 0; transition:background 0.18s ease; padding:0;" style-hover="background:rgba(240,231,216,0.16);"></button>
+                <button onClick="{{ pickTR }}" aria-label="רבע ימני עליון" style="position:absolute; right:0; top:0; width:50%; height:50%; border:none; cursor:pointer; background:{{ trBg }}; border-radius:0 100% 0 0; transition:background 0.18s ease; padding:0;" style-hover="background:rgba(240,231,216,0.16);"></button>
+                <button onClick="{{ pickBL }}" aria-label="רבע שמאלי תחתון" style="position:absolute; left:0; bottom:0; width:50%; height:50%; border:none; cursor:pointer; background:{{ blBg }}; border-radius:0 0 0 100%; transition:background 0.18s ease; padding:0;" style-hover="background:rgba(240,231,216,0.16);"></button>
+                <button onClick="{{ pickBR }}" aria-label="רבע ימני תחתון" style="position:absolute; right:0; bottom:0; width:50%; height:50%; border:none; cursor:pointer; background:{{ brBg }}; border-radius:0 0 100% 0; transition:background 0.18s ease; padding:0;" style-hover="background:rgba(240,231,216,0.16);"></button>
+              </div>
+
+              <sc-if value="{{ isWhole }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute; inset:-10px; border-radius:50%; border:2px solid {{ accent }}; box-shadow:0 0 24px rgba(226,112,58,0.35); pointer-events:none; z-index:6;"></div>
+              </sc-if>
+              <sc-if value="{{ quadRingVisible }}" hint-placeholder-val="{{ false }}">
+                <div style="position:absolute; left:{{ ringLeft }}; top:{{ ringTop }}; width:50%; height:50%; border:2px solid {{ accent }}; border-radius:{{ ringRadius }}; box-shadow:0 0 20px rgba(226,112,58,0.3); pointer-events:none; z-index:6; transition:left 0.2s ease, top 0.2s ease, border-radius 0.2s ease;"></div>
+              </sc-if>
+
+              <div style="position:absolute; bottom:-14px; left:50%; transform:translateX(-50%); background:#241D17; border:1px solid rgba(240,231,216,0.14); color:#F0E7D8; font-size:14px; font-weight:700; padding:8px 18px; border-radius:999px; white-space:nowrap; z-index:7; box-shadow:0 8px 24px rgba(0,0,0,0.4);">
+                עריכה: <span style="color:{{ accent }};">{{ targetLabel }}</span>
+              </div>
+            </div>
+
+            <button onClick="{{ pickWhole }}" style="display:inline-flex; align-items:center; gap:10px; background:{{ wholeBtnBg }}; color:{{ wholeBtnColor }}; border:1px solid {{ wholeBtnBorder }}; padding:12px 26px; border-radius:999px; font-family:'Assistant', sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all 0.18s ease; margin-top:8px;" style-hover="transform:translateY(-1px); box-shadow:0 6px 18px rgba(226,112,58,0.25);">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v20"></path><path d="M2 12h20"></path></svg>
+              {{ wholeBtnLabel }}
+            </button>
+          </div>
+
+          <!-- topping selector -->
+          <div>
+            <div style="font-size:13px; font-weight:700; letter-spacing:0.04em; color:#8F8270; margin-bottom:16px;">תוספות <span style="color:#5E5546;">· {{ toppingPriceLabel }} לרבע</span></div>
+            <div style="display:grid; grid-template-columns:1fr; gap:10px;">
+              <sc-for list="{{ toppings }}" as="tp" hint-placeholder-count="7">
+                <button onClick="{{ tp.toggle }}" style="display:flex; align-items:center; gap:14px; width:100%; text-align:right; background:{{ tp.bg }}; border:1px solid {{ tp.border }}; border-radius:14px; padding:12px 16px; cursor:pointer; transition:all 0.16s ease; color:#F0E7D8; font-family:'Assistant', sans-serif;" style-hover="border-color:rgba(226,112,58,0.5); transform:translateY(-1px);">
+                  <div style="width:40px; height:40px; border-radius:11px; background:#14100D; border:1px solid rgba(240,231,216,0.1); display:grid; place-items:center; flex-shrink:0;">
+                    <sc-if value="{{ tp.isMush }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 30 30"><path d="M4 14 C4 7 9 3.5 15 3.5 C21 3.5 26 7 26 14 C26 15.6 24.8 16.4 23 16.4 L7 16.4 C5.2 16.4 4 15.6 4 14 Z" fill="#E8DCC4" stroke="#B9A67F" stroke-width="1.4"></path><path d="M11.5 16.4 L11 24 C11 25.6 12.5 26.6 15 26.6 C17.5 26.6 19 25.6 19 24 L18.5 16.4 Z" fill="#D9C9A6" stroke="#B9A67F" stroke-width="1.4"></path></svg></sc-if>
+                    <sc-if value="{{ tp.isOlive }}" hint-placeholder-val="{{ false }}"><div style="width:18px; height:18px; border-radius:50%; background:#2A2226; border:5px solid #4A3A44;"></div></sc-if>
+                    <sc-if value="{{ tp.isOnion }}" hint-placeholder-val="{{ false }}"><div style="width:22px; height:22px; border-radius:50%; border:4px solid #A465A8;"></div></sc-if>
+                    <sc-if value="{{ tp.isCherry }}" hint-placeholder-val="{{ false }}"><div style="width:18px; height:18px; border-radius:50%; background:radial-gradient(circle at 36% 32%, #E86A4A 0%, #C13A22 65%, #9E2C16 100%);"></div></sc-if>
+                    <sc-if value="{{ tp.isBasil }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M15 2 C22 6 25 13 23 21 C21.5 26 17 28 15 28 C13 28 8.5 26 7 21 C5 13 8 6 15 2 Z" fill="#5E8A3E" stroke="#3F6428" stroke-width="1.4"></path><path d="M15 5 L15 25" stroke="#3F6428" stroke-width="1.2"></path></svg></sc-if>
+                    <sc-if value="{{ tp.isFeta }}" hint-placeholder-val="{{ false }}"><div style="width:17px; height:15px; background:linear-gradient(160deg, #F5EFE0 0%, #E3D9C2 100%); border-radius:3px; transform:rotate(-8deg);"></div></sc-if>
+                    <sc-if value="{{ tp.isHot }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 30 30"><path d="M8 6 C6 10 6 16 9 21 C11 24 15 26 19 24 C23 22 25 17 24 12 C23.4 9 21 6.5 18 6 C14.5 5.4 10 4.5 8 6 Z" fill="#C93A28" stroke="#8E2416" stroke-width="1.4"></path><path d="M8 6 C7 4 8 2.5 10 2.5" fill="none" stroke="#4E7A32" stroke-width="2.2" stroke-linecap="round"></path></svg></sc-if>
+                  </div>
+                  <div style="flex:1;">
+                    <div style="font-size:15.5px; font-weight:700;">{{ tp.name }}</div>
+                    <div style="font-size:13px; color:#8F8270; margin-top:1px;">{{ tp.desc }}</div>
+                  </div>
+                  <div style="width:24px; height:24px; border-radius:50%; border:1.5px solid {{ tp.checkBorder }}; background:{{ tp.checkBg }}; display:grid; place-items:center; transition:all 0.16s ease; flex-shrink:0;">
+                    <sc-if value="{{ tp.active }}" hint-placeholder-val="{{ false }}">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#14100D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                    </sc-if>
+                  </div>
+                </button>
+              </sc-for>
+            </div>
+          </div>
+
+          <!-- order summary -->
+          <aside style="background:#1D1712; border:1px solid rgba(240,231,216,0.1); border-radius:20px; padding:28px; position:sticky; top:100px; box-shadow:0 20px 50px rgba(0,0,0,0.35);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:22px;">
+              <div style="font-family:'Frank Ruhl Libre', serif; font-size:22px; font-weight:700;">המגש שלך</div>
+              <div style="font-size:13px; color:#8F8270; font-weight:700;">{{ selName }} · {{ sizeLabel }}</div>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:2px; margin-bottom:22px;">
+              <sc-for list="{{ summary }}" as="row" hint-placeholder-count="4">
+                <div style="display:flex; align-items:baseline; gap:12px; padding:10px 0; border-bottom:1px solid rgba(240,231,216,0.06);">
+                  <div style="font-size:13px; font-weight:700; color:{{ row.labelColor }}; width:104px; flex-shrink:0;">{{ row.label }}</div>
+                  <div style="font-size:14px; color:{{ row.textColor }}; line-height:1.5;">{{ row.text }}</div>
+                </div>
+              </sc-for>
+            </div>
+
+            <div style="display:flex; flex-direction:column; gap:8px; padding:16px 0; border-top:1px solid rgba(240,231,216,0.1);">
+              <div style="display:flex; justify-content:space-between; font-size:14.5px; color:#B4A692;">
+                <span>{{ selName }} ({{ sizeLabel }})</span><span>{{ basePriceLabel }}</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:14.5px; color:#B4A692;">
+                <span>תוספות × {{ toppingCount }}</span><span>{{ toppingsTotalLabel }}</span>
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:baseline; margin-top:8px;">
+                <span style="font-size:15.5px; font-weight:700;">סה"כ</span>
+                <span style="font-family:'Frank Ruhl Libre', serif; font-size:32px; color:{{ accent }};">{{ totalLabel }}</span>
+              </div>
+            </div>
+
+            <button onClick="{{ addToCart }}" style="width:100%; display:flex; align-items:center; justify-content:center; gap:10px; background:{{ accent }}; color:#14100D; border:none; border-radius:14px; padding:16px; font-family:'Assistant', sans-serif; font-size:16px; font-weight:700; cursor:pointer; transition:transform 0.15s ease, box-shadow 0.15s ease; margin-top:6px;" style-hover="transform:translateY(-1px); box-shadow:0 10px 28px rgba(226,112,58,0.4);" style-active="transform:translateY(0) scale(0.98);">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+              {{ cartBtnLabel }}
+            </button>
+            <div style="text-align:center; font-size:12.5px; color:#5E5546; margin-top:14px;">מוכן תוך ~20 דקות · משלוח או איסוף עצמי</div>
+          </aside>
+
+        </div>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ============ FOOTER ============ -->
+  <footer style="border-top:1px solid rgba(240,231,216,0.08); padding:36px 48px; display:flex; justify-content:space-between; align-items:center; max-width:1280px; margin:0 auto; font-size:14px; color:#8F8270;">
+    <div style="display:flex; align-items:center; gap:12px;">
+      <img src="uploads/OnPaste.20250630-082108.png" alt="Pizza Louise" style="width:36px; height:36px; border-radius:8px; object-fit:cover;">
+      <div style="font-family:'Frank Ruhl Libre', serif; font-size:17px; color:#B4A692; font-weight:700;">פיצה לואיז</div>
+    </div>
+    <div>כשר חלבי · פתוח א'–ה' 11:00–23:00, מוצ"ש עד חצות</div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;accentColor&quot;: { &quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: &quot;#D8402F&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;#D8402F&quot;, &quot;#C6402E&quot;, &quot;#E2703A&quot;, &quot;#B98A2F&quot;], &quot;section&quot;: &quot;עיצוב&quot; },
+  &quot;toppingPrice&quot;: { &quot;editor&quot;: &quot;float&quot;, &quot;default&quot;: 3, &quot;tsType&quot;: &quot;number&quot;, &quot;min&quot;: 1, &quot;max&quot;: 12, &quot;step&quot;: 0.5, &quot;unit&quot;: &quot;₪&quot;, &quot;section&quot;: &quot;מחירים&quot; }
+}">
+const QUADS = ['TL', 'TR', 'BL', 'BR'];
+const QUAD_CENTER = { TL: [31, 31], TR: [69, 31], BL: [31, 69], BR: [69, 69] };
+const QUAD_NAME = { TL: 'רבע שמאלי עליון', TR: 'רבע ימני עליון', BL: 'רבע שמאלי תחתון', BR: 'רבע ימני תחתון' };
+
+const PIZZAS = [
+  { id: 'margherita', name: 'מרגריטה ניו יורקית', desc: 'רוטב עגבניות איטלקי, מוצרלה איכותית ובזיליקום טרי — הקלאסיקה של מנהטן, פשוטה ומושלמת.', priceM: 58, priceL: 78, placeholder: 'מרגריטה', src: 'uploads/LUIS11_autoOrient_w.jpg' },
+  { id: 'shroomiz', name: 'שרומיז', desc: 'ראגו פטריות ביתי עשיר, מוצרלה, שמנת ופרמז\'ן מגורר — הפיצה שכולם מדברים עליה.', priceM: 64, priceL: 88, placeholder: 'שרומיז' },
+  { id: 'tomato-butter', name: 'חמאת עגבניות', desc: 'רוטב חמאת עגבניות קטיפתי, מוצרלה נמסה ועלי בזיליקום — עשירה, חמימה וממכרת.', priceM: 62, priceL: 84, placeholder: 'חמאת עגבניות' },
+  { id: 'mediterranean', name: 'ים תיכונית', desc: 'זיתי קלמטה, עגבניות שרי, בצל סגול, גבינה בולגרית וזעתר — הטעמים של הבית על בצק ניו יורקי.', priceM: 64, priceL: 88, placeholder: 'ים תיכונית' },
+  { id: 'four-cheese', name: 'ארבע גבינות', desc: 'מוצרלה, גורגונזולה, פרמז\'ן וריקוטה — למי שאוהב את זה עשיר במיוחד.', priceM: 66, priceL: 92, placeholder: 'ארבע גבינות', src: 'uploads/LUIS7_autoOrient_i.jpg' },
+  { id: 'spicy', name: 'הפיקנטית', desc: 'שמן צ\'ילי ביתי, פלפלים חריפים, זיתים שחורים ומוצרלה — לחובבי החריף האמיתיים.', priceM: 60, priceL: 82, placeholder: 'הפיקנטית' },
+];
+
+const TOPPINGS = [
+  { id: 'mush',   name: 'פטריות טריות',  desc: 'שמפיניון פרוס דק' },
+  { id: 'olive',  name: 'זיתים שחורים',  desc: 'קלמטה פרוס' },
+  { id: 'onion',  name: 'בצל סגול',      desc: 'טבעות דקות' },
+  { id: 'cherry', name: 'עגבניות שרי',   desc: 'חצויות, מתוקות' },
+  { id: 'basil',  name: 'בזיליקום טרי',  desc: 'עלים קרועים ביד' },
+  { id: 'feta',   name: 'גבינה בולגרית', desc: 'קוביות מלוחות' },
+  { id: 'hot',    name: 'פלפל חריף',     desc: 'ירוק חריף פרוס' },
+];
+
+function scatterFor(quad, toppingIdx) {
+  const [cx, cy] = QUAD_CENTER[quad];
+  const qOff = QUADS.indexOf(quad) * 37;
+  const pts = [];
+  for (let j = 0; j < 3; j++) {
+    const angle = ((toppingIdx * 73 + j * 121 + qOff) % 360) * Math.PI / 180;
+    const r = 5.5 + ((toppingIdx * 31 + j * 47 + qOff) % 70) / 10;
+    pts.push([cx + r * Math.cos(angle), cy + r * Math.sin(angle)]);
+  }
+  return pts;
+}
+
+class Component extends DCLogic {
+  state = {
+    view: 'home',           // 'home' | 'product'
+    pizzaId: null,
+    size: 'L',              // 'M' | 'L'
+    target: 'whole',
+    quads: { TL: [], TR: [], BL: [], BR: [] },
+    cartCount: 0,
+    cartTotal: 0,
+  };
+
+  openPizza(id) {
+    this.setState({ view: 'product', pizzaId: id, size: 'L', target: 'whole', quads: { TL: [], TR: [], BL: [], BR: [] } });
+    window.scrollTo(0, 0);
+  }
+
+  toggleTopping(id) {
+    this.setState(s => {
+      const targets = s.target === 'whole' ? QUADS : [s.target];
+      const onAll = targets.every(q => s.quads[q].includes(id));
+      const quads = { ...s.quads };
+      for (const q of targets) {
+        quads[q] = onAll
+          ? quads[q].filter(t => t !== id)
+          : (quads[q].includes(id) ? quads[q] : [...quads[q], id]);
+      }
+      return { quads };
+    });
+  }
+
+  renderVals() {
+    const accent = this.props.accentColor ?? '#D8402F';
+    const toppingPrice = this.props.toppingPrice ?? 3;
+    const { view, pizzaId, size, target, quads, cartCount, cartTotal } = this.state;
+    const money = n => '₪' + (Number.isInteger(n) ? n : n.toFixed(2));
+    const isWhole = target === 'whole';
+
+    const pizzas = PIZZAS.map(p => ({
+      name: p.name, desc: p.desc,
+      fromPrice: money(p.priceM),
+      slotId: 'pz-' + p.id,
+      placeholder: 'תמונה: ' + p.placeholder,
+      src: p.src || '',
+      open: () => this.openPizza(p.id),
+    }));
+
+    const sel = PIZZAS.find(p => p.id === pizzaId) || PIZZAS[0];
+    const basePrice = size === 'M' ? sel.priceM : sel.priceL;
+
+    const placed = [];
+    for (const q of QUADS) {
+      quads[q].forEach(id => {
+        const ti = TOPPINGS.findIndex(t => t.id === id);
+        scatterFor(q, ti).forEach(([x, y], j) => {
+          placed.push({
+            left: x + '%', top: y + '%',
+            rot: ((ti * 61 + j * 133) % 360),
+            isMush: id === 'mush', isOlive: id === 'olive', isOnion: id === 'onion',
+            isCherry: id === 'cherry', isBasil: id === 'basil', isFeta: id === 'feta', isHot: id === 'hot',
+          });
+        });
+      });
+    }
+
+    const targetsNow = isWhole ? QUADS : [target];
+    const toppings = TOPPINGS.map(t => {
+      const active = targetsNow.every(q => quads[q].includes(t.id));
+      return {
+        name: t.name, desc: t.desc, active,
+        isMush: t.id === 'mush', isOlive: t.id === 'olive', isOnion: t.id === 'onion',
+        isCherry: t.id === 'cherry', isBasil: t.id === 'basil', isFeta: t.id === 'feta', isHot: t.id === 'hot',
+        bg: active ? 'rgba(226,112,58,0.1)' : '#1D1712',
+        border: active ? 'rgba(226,112,58,0.55)' : 'rgba(240,231,216,0.1)',
+        checkBg: active ? accent : 'transparent',
+        checkBorder: active ? accent : 'rgba(240,231,216,0.25)',
+        toggle: () => this.toggleTopping(t.id),
+      };
+    });
+
+    const summary = QUADS.map(q => {
+      const names = quads[q].map(id => TOPPINGS.find(t => t.id === id).name);
+      const empty = names.length === 0;
+      const targeted = isWhole || target === q;
+      return {
+        label: QUAD_NAME[q],
+        labelColor: targeted ? accent : '#8F8270',
+        text: empty ? 'ללא תוספות' : names.join(', '),
+        textColor: empty ? '#5E5546' : '#F0E7D8',
+      };
+    });
+
+    const toppingCount = QUADS.reduce((n, q) => n + quads[q].length, 0);
+    const toppingsTotal = toppingCount * toppingPrice;
+    const total = basePrice + toppingsTotal;
+
+    const selBg = 'rgba(240,231,216,0.1)';
+    const ringPos = { TL: ['0%', '0%'], TR: ['50%', '0%'], BL: ['0%', '50%'], BR: ['50%', '50%'] };
+    const ringRad = { TL: '100% 0 0 0', TR: '0 100% 0 0', BL: '0 0 0 100%', BR: '0 0 100% 0' };
+
+    return {
+      accent,
+      isHome: view === 'home',
+      isProduct: view === 'product',
+      goHome: (e) => { if (e && e.preventDefault) e.preventDefault(); this.setState({ view: 'home' }); window.scrollTo(0, 0); },
+      pizzas,
+      cartLabel: cartCount === 0 ? 'ריק' : cartCount + ' · ' + money(cartTotal),
+
+      selName: sel.name,
+      selDesc: sel.desc,
+      selSlotId: 'pz-' + sel.id,
+      selPlaceholder: 'תמונה: ' + sel.placeholder,
+      selSrc: sel.src || '',
+      selPriceLabel: money(basePrice),
+      selPriceM: money(sel.priceM),
+      selPriceL: money(sel.priceL),
+      pickM: () => this.setState({ size: 'M' }),
+      pickL: () => this.setState({ size: 'L' }),
+      sizeMBg: size === 'M' ? 'rgba(226,112,58,0.12)' : '#1D1712',
+      sizeMBorder: size === 'M' ? accent : 'rgba(240,231,216,0.12)',
+      sizeLBg: size === 'L' ? 'rgba(226,112,58,0.12)' : '#1D1712',
+      sizeLBorder: size === 'L' ? accent : 'rgba(240,231,216,0.12)',
+      sizeLabel: size === 'M' ? 'אישי' : 'משפחתי',
+
+      isWhole,
+      tlBg: !isWhole && target === 'TL' ? selBg : 'transparent',
+      trBg: !isWhole && target === 'TR' ? selBg : 'transparent',
+      blBg: !isWhole && target === 'BL' ? selBg : 'transparent',
+      brBg: !isWhole && target === 'BR' ? selBg : 'transparent',
+      quadRingVisible: !isWhole,
+      ringLeft: isWhole ? '0%' : ringPos[target][0],
+      ringTop: isWhole ? '0%' : ringPos[target][1],
+      ringRadius: isWhole ? '0' : ringRad[target],
+      targetLabel: isWhole ? 'כל המגש' : QUAD_NAME[target],
+      pickTL: () => this.setState({ target: 'TL' }),
+      pickTR: () => this.setState({ target: 'TR' }),
+      pickBL: () => this.setState({ target: 'BL' }),
+      pickBR: () => this.setState({ target: 'BR' }),
+      pickWhole: () => this.setState({ target: 'whole' }),
+      wholeBtnLabel: isWhole ? 'עורכים את כל המגש' : 'בחרו את כל המגש',
+      wholeBtnBg: isWhole ? accent : 'transparent',
+      wholeBtnColor: isWhole ? '#14100D' : '#F0E7D8',
+      wholeBtnBorder: isWhole ? accent : 'rgba(240,231,216,0.25)',
+
+      placed,
+      toppings,
+      summary,
+      toppingCount,
+      basePriceLabel: money(basePrice),
+      toppingPriceLabel: money(toppingPrice),
+      toppingsTotalLabel: toppingCount === 0 ? '—' : '+' + money(toppingsTotal),
+      totalLabel: money(total),
+      cartBtnLabel: 'הוסיפו לסל — ' + money(total),
+      addToCart: () => this.setState(s => ({ cartCount: s.cartCount + 1, cartTotal: s.cartTotal + total })),
+    };
+  }
+}
+
+</script>
+</body>
+</html>
