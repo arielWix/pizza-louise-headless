@@ -130,7 +130,7 @@ const jsonLd = {
                 </div>
                 <div class="topping-price">+{money(t.price)}</div>
                 <div class="topping-check">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#14100D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
                 </div>
               </button>
             ))}
@@ -146,7 +146,7 @@ const jsonLd = {
             {QUADS.map((q) => (
               <div class="summary-row">
                 <div class="label" style="color:var(--accent);">{QUAD_NAME[q]}</div>
-                <div class="text" style="color:#5E5546;">ללא תוספות</div>
+                <div class="text" style="color:var(--muted);">ללא תוספות</div>
               </div>
             ))}
           </div>

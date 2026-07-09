@@ -58,7 +58,7 @@ export function initBuilder() {
 
     // quad highlight + rings
     $$('.pv-quad').forEach((b) => {
-      b.style.background = (!isWhole && b.dataset.quad === state.target) ? 'rgba(240,231,216,0.1)' : 'transparent';
+      b.style.background = (!isWhole && b.dataset.quad === state.target) ? 'rgba(42,26,18,0.14)' : 'transparent';
     });
     $('#pv-rings').innerHTML = isWhole
       ? '<div class="pv-whole-ring"></div>'
@@ -82,8 +82,8 @@ export function initBuilder() {
       const empty = names.length === 0;
       const targeted = isWhole || state.target === q;
       return `<div class="summary-row">
-        <div class="label" style="color:${targeted ? 'var(--accent)' : '#8F8270'};">${QUAD_NAME[q]}</div>
-        <div class="text" style="color:${empty ? '#5E5546' : '#F0E7D8'};">${empty ? 'ללא תוספות' : names.join(', ')}</div>
+        <div class="label" style="color:${targeted ? 'var(--accent)' : 'var(--muted)'};">${QUAD_NAME[q]}</div>
+        <div class="text" style="color:${empty ? 'var(--muted)' : 'var(--ink)'};">${empty ? 'ללא תוספות' : names.join(', ')}</div>
       </div>`;
     }).join('');
 
