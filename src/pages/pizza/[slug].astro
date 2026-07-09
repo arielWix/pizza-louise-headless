@@ -5,7 +5,7 @@ import { ICON_ART, money, QUAD_NAME, QUADS } from '../../lib/art.js';
 
 const catalog = await getCatalog();
 const pz = findPizza(catalog, Astro.params.slug);
-if (!pz) return Astro.redirect('/', 302);
+if (!pz) return Astro.redirect('/menu', 302);
 
 const origin = Astro.url.origin;
 const toppings = catalog.toppings;
@@ -42,7 +42,7 @@ const jsonLd = {
 >
   <section class="product-section">
     <nav class="breadcrumb" aria-label="נתיב">
-      <a href="/">תפריט</a><span>/</span><span class="current">{pz.name}</span>
+      <a href="/menu">תפריט</a><span>/</span><span class="current">{pz.name}</span>
     </nav>
     <div class="product-grid">
       <div class="product-img-wrap">

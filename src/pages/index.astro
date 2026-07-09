@@ -1,13 +1,12 @@
 ---
 import Site from '../layouts/Site.astro';
-import { getCatalog } from '../lib/catalog.js';
-import { money } from '../lib/art.js';
 
-const catalog = await getCatalog();
 const origin = Astro.url.origin;
 
 const description =
-  'פיצה לואיז — פיצה ניו יורקית אמיתית, כשרה חלבית. בצק ביגה שתופח 72 שעות ותנור אבן לוהט. הרכיבו מגש אונליין עם תוספות לכל רבע — משלוח או איסוף עצמי.';
+  'פיצה לואיז — פיצה ניו יורקית אמיתית, כשרה חלבית, שנולדה מאהבה לטעמים של מנהטן וברוקלין. בצק ביגה שתופח 72 שעות, רוטב עגבניות ביתי וגבינת מוצרלה פרימיום. משלוח מהיר או איסוף עצמי.';
+
+const check = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>`;
 
 const jsonLd = [
   {
@@ -20,25 +19,16 @@ const jsonLd = [
     url: origin + '/',
     image: origin + '/assets/hero.jpeg',
     acceptsReservations: false,
-    hasMenu: origin + '/#menu',
+    hasMenu: origin + '/menu',
     areaServed: 'ראשון לציון',
     openingHours: ['Su-Th 11:00-23:00', 'Sa 20:00-24:00'],
   },
   {
     '@context': 'https://schema.org',
-    '@type': 'Menu',
-    name: 'תפריט פיצה לואיז',
-    hasMenuSection: {
-      '@type': 'MenuSection',
-      name: 'פיצות',
-      hasMenuItem: catalog.pizzas.map((p) => ({
-        '@type': 'MenuItem',
-        name: p.name,
-        description: p.desc,
-        url: origin + '/pizza/' + p.slug,
-        offers: { '@type': 'Offer', price: p.priceL, priceCurrency: 'ILS' },
-      })),
-    },
+    '@type': 'AboutPage',
+    name: 'פיצה לואיז — הסיפור שלנו',
+    description,
+    url: origin + '/',
   },
 ];
 ---
@@ -46,52 +36,45 @@ const jsonLd = [
   title="פיצה לואיז — פיצה ניו יורקית אמיתית"
   description={description}
   canonicalPath="/"
+  ogImage="/assets/gallery-bar.jpeg"
   jsonLd={jsonLd}
 >
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-overlay"></div>
-    <div class="hero-inner">
-      <p class="hero-badge">פיצה לואיז · כשר חלבי · ניו יורק סטייל</p>
-      <h1>פיצה <em>ניו יורקית</em> אמיתית</h1>
-      <p>משולשים ענקיים ברוח מנהטן, בצק על בסיס ביגה שתופח 72 שעות, ותנור לוהט שנותן את הקראנץ' המושלם. בחרו מגש — ותרכיבו אותו בדיוק כמו שאתם אוהבים.</p>
-    </div>
-  </section>
+  <section class="about-section">
+    <div class="about-eyebrow"><span class="about-kicker" lang="he">קצת עלינו</span></div>
+    <h1 class="about-h1">נולדנו מאהבה לפיצה <em>ניו יורקית</em></h1>
+    <p class="about-lede">הבאנו לישראל את הטעמים האותנטיים של מנהטן וברוקלין — כשר חלבי, טרי כל יום.</p>
 
-  <section class="menu-section" id="menu">
-    <div class="section-head"><h2>התפריט שלנו</h2></div>
-    <div class="menu-grid">
-      {catalog.pizzas.map((p) => (
-        <a class="pizza-card" href={`/pizza/${p.slug}`}>
-          <div class="img-wrap">
-            {p.image ? (
-              <img src={p.image} alt={p.name} loading="lazy" />
-            ) : (
-              <div class="img-placeholder">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="m21 15-5-5L5 21"></path></svg>
-                <span>תמונה: {p.name}</span>
-              </div>
-            )}
-          </div>
-          <div class="card-body">
-            <div class="card-title-row">
-              <h3 class="name">{p.name}</h3>
-              <div class="from-price">החל מ־{money(p.priceM)}</div>
-            </div>
-            <p class="desc">{p.desc}</p>
-            <div class="card-cta">
-              להרכבת המגש
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="transform:scaleX(-1);"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-            </div>
-          </div>
-        </a>
-      ))}
+    <div class="about-block">
+      <div>
+        <p class="about-kicker" lang="en">Fast Delivery</p>
+        <h2>הפיצה הטובה ביותר <em>בדרך אליכם!</em></h2>
+        <p>אנחנו מבינים שכשרוצים פיצה אמיתית – רוצים אותה מהר! לכן פיתחנו מערכת משלוחים מתקדמת שמבטיחה שהפיצה שלכם תגיע אליכם חמה, טרייה וטעימה בדיוק כמו ברגע שיצאה מהתנור.</p>
+        <div class="about-bullets">
+          <div class="about-bullet"><Fragment set:html={check} /> משלוח עד הבית (ראשל"צ בלבד)</div>
+          <div class="about-bullet"><Fragment set:html={check} /> משלוח תוך 60 דקות</div>
+        </div>
+      </div>
+      <div class="about-features">
+        <div class="about-feature"><div class="f-title">בצק טרי יום יום</div><div class="f-desc">נילושה בבוקר ומתפחת במשך 24 שעות למרקם מושלם</div></div>
+        <div class="about-feature"><div class="f-title">רוטב עגבניות ביתי</div><div class="f-desc">מבושל לאט עם תבלינים איטלקיים אותנטיים</div></div>
+        <div class="about-feature"><div class="f-title">גבינת מוצרלה פרימיום</div><div class="f-desc">טרייה מדי יום עם המסה מושלמת</div></div>
+      </div>
     </div>
 
-    <div class="gallery">
-      <img src="/assets/fotter-1.jpg" alt="קינוחים מהתנור של פיצה לואיז" loading="lazy" />
-      <img src="/assets/fotter-2.jpg" alt="מאפה שוקולד" loading="lazy" />
-      <img src="/assets/fotter-3.jpg" alt="הבר של פיצה לואיז" loading="lazy" />
+    <div class="about-block">
+      <div>
+        <p class="about-kicker" lang="en">Made with Love</p>
+        <h2>אנחנו מכינים את הפיצה <em>הטובה ביותר בעיר</em></h2>
+        <p>פיצה לואיז נוסדה מתוך אהבה אמיתית לפיצה ניו יורקית ורצון להביא לישראל את הטעמים האותנטיים של מנהטן וברוקלין. כל פיצה מוכנת בקפדנות מקסימלית, מהעיסה שנילושה בבוקר ועד לתוספות הטריות שמגיעות מידי יום.</p>
+      </div>
+      <img class="about-img" src="/assets/fotter-2.jpg" alt="פיצה לואיז" loading="lazy" />
+    </div>
+
+    <div class="about-stats">
+      <div class="about-stat"><div class="num">12</div><div class="lbl">אנשי צוות לשירותכם</div></div>
+      <div class="about-stat"><div class="num">35</div><div class="lbl">הזמנות בשעה</div></div>
+      <div class="about-stat"><div class="num">25</div><div class="lbl">סוגי פיצה</div></div>
+      <div class="about-stat"><div class="num">15,000</div><div class="lbl">לקוחות מרוצים</div></div>
     </div>
   </section>
 </Site>

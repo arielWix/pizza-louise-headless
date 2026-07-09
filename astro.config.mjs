@@ -20,6 +20,7 @@ const productPages = () =>
 // https://astro.build/config
 export default defineConfig({
   integrations: [wix(), wixPages({ extendPages: productPages })],
+  redirects: { '/about': '/' }, // the story is now the home page; keep old links working
   security: { checkOrigin: false },
   ...(isBuild && { adapter: cloudProviderFetchAdapter({}) }),
 
