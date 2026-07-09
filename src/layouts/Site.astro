@@ -37,6 +37,11 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  {/* Preload the Hebrew subsets of the two dominant faces (variable fonts — one
+      file per family covers every weight) so headings + body arrive at first
+      paint and don't flash a fallback font on a cold mobile visit. */}
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/frankruhllibre/v23/j8_w6_fAw7jrcalD7oKYNX0QfAnPW7Ll4brkiY-xBg.woff2" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/assistant/v24/2sDcZGJYnIjSi6H75xkzamW5Kb8VZBHR.woff2" />
   <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@400;500;600;700&family=Rubik:wght@600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
 
   {jsonLdArray.map((obj) => (
