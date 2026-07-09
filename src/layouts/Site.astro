@@ -37,7 +37,7 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@400;500;600;700&family=Rubik:wght@600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
 
   {jsonLdArray.map((obj) => (
     <script type="application/ld+json" set:html={JSON.stringify(obj)} />
@@ -296,7 +296,43 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   .about-h1 { font-family: 'Frank Ruhl Libre', serif; font-weight: 900; font-size: 46px; margin: 0 0 8px; text-align: center; color: var(--ink); }
   .about-h1 em { color: var(--accent); font-style: normal; }
   .about-lede { text-align: center; color: var(--ink-soft); font-size: 17px; max-width: 60ch; margin: 0 auto 12px; }
-  .about-kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.06em; color: var(--amber); background: var(--surface); border: 1px solid var(--border-strong); padding: 7px 16px; border-radius: 999px; margin: 0 0 20px; }
+  /* ===== KICKER — premium bilingual label badge ===== */
+  @keyframes kickerIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .about-kicker {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 800; line-height: 1;
+    color: var(--accent-deep);
+    background: var(--tint);
+    border: 1px solid rgba(198,58,40,0.35);
+    padding: 9px 15px; border-radius: 999px; margin: 0 0 20px;
+    position: relative; isolation: isolate;
+    animation: kickerIn 0.5s cubic-bezier(0.22,1,0.36,1) both;
+    transition: transform 0.2s cubic-bezier(0.22,1,0.36,1), background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  /* mini pizza-slice icon prefix (mask → follows currentColor) */
+  .about-kicker::before {
+    content: ""; width: 13px; height: 13px; flex-shrink: 0; background: currentColor;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.2 6h15.6a1.5 1.5 0 0 1 1.2 2.4l-7.8 12.9a1.5 1.5 0 0 1-2.4 0L3 8.4A1.5 1.5 0 0 1 4.2 6Z'/%3E%3C/svg%3E") center / contain no-repeat;
+            mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4.2 6h15.6a1.5 1.5 0 0 1 1.2 2.4l-7.8 12.9a1.5 1.5 0 0 1-2.4 0L3 8.4A1.5 1.5 0 0 1 4.2 6Z'/%3E%3C/svg%3E") center / contain no-repeat;
+    transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  /* underline-reveal accent under the label text */
+  .about-kicker::after {
+    content: ""; position: absolute; inset-inline: 15px; bottom: 6px; height: 2px;
+    background: currentColor; border-radius: 2px; transform: scaleX(0); transform-origin: inset-inline-start;
+    opacity: 0.7; transition: transform 0.28s cubic-bezier(0.22,1,0.36,1);
+  }
+  /* Hebrew: geometric contemporary sans */
+  .about-kicker:lang(he) { font-family: 'Rubik', 'Assistant', sans-serif; letter-spacing: 0.03em; }
+  /* English: character-rich geometric display, uppercase + aggressive tracking */
+  .about-kicker:lang(en) { font-family: 'Syne', 'Frank Ruhl Libre', sans-serif; text-transform: uppercase; letter-spacing: 0.18em; padding-inline-end: 12px; }
+  .about-kicker:hover, .about-kicker:focus-visible {
+    transform: translateY(-2px);
+    background: var(--accent); color: var(--on-accent); border-color: var(--accent);
+    box-shadow: 0 8px 22px rgba(198,58,40,0.30); outline: none;
+  }
+  .about-kicker:hover::before, .about-kicker:focus-visible::before { transform: rotate(-14deg) scale(1.12); }
+  .about-kicker:hover::after, .about-kicker:focus-visible::after { transform: scaleX(1); }
   .about-block { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; padding: 48px 0; }
   .about-block + .about-block { border-top: 1px solid var(--border); }
   .about-block h2 { font-family: 'Frank Ruhl Libre', serif; font-weight: 900; font-size: 40px; line-height: 1.15; margin: 0 0 18px; color: var(--ink); }
@@ -330,7 +366,8 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   /* ===== ACCESSIBILITY: honor reduced-motion — freeze ambient + entrance motion ===== */
   @media (prefers-reduced-motion: reduce) {
     .amb { animation: none !important; }
-    .pizza-card, .product-info, .pv-topping, .toast { animation: none !important; }
+    .pizza-card, .product-info, .pv-topping, .toast, .about-kicker { animation: none !important; }
+    .about-kicker::before, .about-kicker::after { transition: none !important; }
     * { transition-duration: 0.01ms !important; }
   }
 
