@@ -21,6 +21,12 @@ const productPages = () =>
 export default defineConfig({
   integrations: [wix(), wixPages({ extendPages: productPages })],
   redirects: { '/about': '/' }, // the story is now the home page; keep old links working
+  // Inline all CSS into each page's <head> instead of a separate hashed file. The
+  // HTML is served no-cache (always fresh), so the styles travel with it — there's
+  // no external stylesheet that can 404 / go stale / lag and leave a naked first
+  // paint (the "first load unstyled, refresh fixes it" bug). Also removes a
+  // render-blocking round-trip.
+  build: { inlineStylesheets: 'always' },
   security: { checkOrigin: false },
   ...(isBuild && { adapter: cloudProviderFetchAdapter({}) }),
 
