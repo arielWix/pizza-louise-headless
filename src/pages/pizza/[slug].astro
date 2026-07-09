@@ -1,0 +1,173 @@
+---
+import Site from '../../layouts/Site.astro';
+import { getCatalog, findPizza } from '../../lib/catalog.js';
+import { ICON_ART, money, QUAD_NAME, QUADS } from '../../lib/art.js';
+
+const catalog = await getCatalog();
+const pz = findPizza(catalog, Astro.params.slug);
+if (!pz) return Astro.redirect('/', 302);
+
+const origin = Astro.url.origin;
+const toppings = catalog.toppings;
+const description = `${pz.name} — ${pz.desc} מגש אישי (M) או משפחתי (L), עם תוספות לכל רבע. הזמינו אונליין מפיצה לואיז.`;
+
+const builderData = {
+  pizza: {
+    name: pz.name, priceM: pz.priceM, priceL: pz.priceL,
+    itemId: pz.itemId, variantMId: pz.variantMId, variantLId: pz.variantLId,
+  },
+  toppings: toppings.map((t) => ({ uiId: t.uiId, art: t.art, name: t.name, price: t.price, modifierId: t.modifierId })),
+  wix: { ...catalog.wix, live: catalog.live },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'MenuItem',
+  name: pz.name,
+  description: pz.desc,
+  url: origin + '/pizza/' + pz.slug,
+  ...(pz.image ? { image: origin + pz.image } : {}),
+  offers: [
+    { '@type': 'Offer', name: 'M · אישי', price: pz.priceM, priceCurrency: 'ILS' },
+    { '@type': 'Offer', name: 'L · משפחתי', price: pz.priceL, priceCurrency: 'ILS' },
+  ],
+};
+---
+<Site
+  title={`${pz.name} — פיצה לואיז`}
+  description={description}
+  canonicalPath={`/pizza/${pz.slug}`}
+  ogImage={pz.image || '/assets/hero.jpeg'}
+  jsonLd={jsonLd}
+>
+  <section class="product-section">
+    <nav class="breadcrumb" aria-label="נתיב">
+      <a href="/">תפריט</a><span>/</span><span class="current">{pz.name}</span>
+    </nav>
+    <div class="product-grid">
+      <div class="product-img-wrap">
+        {pz.image ? (
+          <img src={pz.image} alt={pz.name} />
+        ) : (
+          <div class="img-placeholder" style="border-radius:20px;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><path d="m21 15-5-5L5 21"></path></svg>
+            <span>תמונה: {pz.name}</span>
+          </div>
+        )}
+      </div>
+      <div class="product-info">
+        <h1>{pz.name}</h1>
+        <div class="product-price" id="sel-price">{money(pz.priceL)}</div>
+        <p class="product-desc">{pz.desc}</p>
+
+        <div class="size-label">גודל מגש</div>
+        <div class="size-row">
+          <button class="size-btn" data-size="M" type="button">
+            <div class="size-name">M · אישי</div>
+            <div class="size-price" id="price-m">{money(pz.priceM)}</div>
+          </button>
+          <button class="size-btn active" data-size="L" type="button">
+            <div class="size-name">L · משפחתי</div>
+            <div class="size-price" id="price-l">{money(pz.priceL)}</div>
+          </button>
+        </div>
+
+        <div class="product-features">
+          <div>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            ביגה · 72 שעות התפחה
+          </div>
+          <div>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg>
+            תנור אבן לוהט
+          </div>
+        </div>
+        <p class="dough-note">הבצק שלנו מורכב מ-3 סוגי קמחים, על בסיס ביגה (מחמצת איטלקית) שנח לו 72 שעות בטמפרטורה מבוקרת.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="builder-section">
+    <div class="builder-inner">
+      <div class="builder-head">
+        <h2>רוצים תוספות?</h2>
+        <p>בחרו רבע — או את כל המגש — והוסיפו תוספות בדיוק איפה שבא לכם.</p>
+      </div>
+      <div class="builder-grid">
+        <div class="pizza-visual-col">
+          <div class="pizza-visual">
+            <div class="pv-glow"></div>
+            <div class="pv-crust"></div>
+            <div class="pv-sauce"></div>
+            <div class="pv-cheese"></div>
+            <div class="pv-toppings" id="pv-toppings"></div>
+            <div class="pv-line-v"></div>
+            <div class="pv-line-h"></div>
+            <div class="pv-quads">
+              <button class="pv-quad tl" data-quad="TL" aria-label="רבע שמאלי עליון" type="button"></button>
+              <button class="pv-quad tr" data-quad="TR" aria-label="רבע ימני עליון" type="button"></button>
+              <button class="pv-quad bl" data-quad="BL" aria-label="רבע שמאלי תחתון" type="button"></button>
+              <button class="pv-quad br" data-quad="BR" aria-label="רבע ימני תחתון" type="button"></button>
+            </div>
+            <div id="pv-rings"><div class="pv-whole-ring"></div></div>
+            <div class="pv-target-badge">עריכה: <span id="target-label">כל המגש</span></div>
+          </div>
+          <button class="whole-btn active" id="whole-btn" type="button">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M12 2v20"></path><path d="M2 12h20"></path></svg>
+            <span id="whole-label">עורכים את כל המגש</span>
+          </button>
+        </div>
+
+        <div class="toppings-col">
+          <div class="toppings-label">תוספות <span class="muted">· מחיר לפי תוספת, לכל המגש</span></div>
+          <div class="toppings-list">
+            {toppings.map((t) => (
+              <button class="topping-btn" data-ui-id={t.uiId} type="button">
+                <div class="topping-icon"><Fragment set:html={ICON_ART[t.art] ? ICON_ART[t.art]() : ''} /></div>
+                <div class="topping-text">
+                  <div class="t-name">{t.name}</div>
+                  <div class="t-desc">{t.desc}</div>
+                </div>
+                <div class="topping-price">+{money(t.price)}</div>
+                <div class="topping-check">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#14100D" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <aside class="summary-aside">
+          <div class="summary-head">
+            <div class="title">המגש שלך</div>
+            <div class="sub">{pz.name} · <span id="size-label">משפחתי</span></div>
+          </div>
+          <div class="summary-rows" id="summary-rows">
+            {QUADS.map((q) => (
+              <div class="summary-row">
+                <div class="label" style="color:var(--accent);">{QUAD_NAME[q]}</div>
+                <div class="text" style="color:#5E5546;">ללא תוספות</div>
+              </div>
+            ))}
+          </div>
+          <div class="summary-totals">
+            <div class="summary-line"><span>{pz.name} (<span id="size-label-2">משפחתי</span>)</span><span id="base-price">{money(pz.priceL)}</span></div>
+            <div class="summary-line"><span>תוספות × <span id="topping-count">0</span></span><span id="toppings-total">—</span></div>
+            <div class="summary-total"><span class="lbl">סה"כ</span><span class="val" id="total-label">{money(pz.priceL)}</span></div>
+          </div>
+          <button class="add-cart-btn" id="add-cart-btn" type="button">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"></circle><circle cx="19" cy="21" r="1"></circle><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path></svg>
+            <span id="cart-btn-label">הוסיפו לסל — {money(pz.priceL)}</span>
+          </button>
+          <div class="summary-note">מוכן תוך ~20 דקות · משלוח או איסוף עצמי</div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <script type="application/json" id="builder-data" set:html={JSON.stringify(builderData)}></script>
+  <script>
+    import { initBuilder } from '../../scripts/builder.js';
+    initBuilder();
+  </script>
+</Site>

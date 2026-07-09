@@ -1,0 +1,59 @@
+---
+import Site from '../layouts/Site.astro';
+
+const description =
+  'הסיפור של פיצה לואיז — פיצה ניו יורקית אותנטית שנולדה מאהבה לטעמים של מנהטן וברוקלין. בצק טרי יום יום, רוטב עגבניות ביתי וגבינת מוצרלה פרימיום, עם משלוח מהיר.';
+
+const check = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>`;
+---
+<Site
+  title="הסיפור שלנו — פיצה לואיז"
+  description={description}
+  canonicalPath="/about"
+  ogImage="/assets/gallery-bar.jpeg"
+  jsonLd={{
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    name: 'הסיפור שלנו — פיצה לואיז',
+    description,
+    url: Astro.url.origin + '/about',
+  }}
+>
+  <section class="about-section">
+    <h1 class="about-h1">קצת עלינו</h1>
+    <p class="about-lede">פיצה ניו יורקית אמיתית, כשרה חלבית — נולדה מאהבה לטעמים של מנהטן וברוקלין.</p>
+
+    <div class="about-block">
+      <div>
+        <p class="about-kicker">Fast Delivery</p>
+        <h2>הפיצה הטובה ביותר <em>בדרך אליכם!</em></h2>
+        <p>אנחנו מבינים שכשרוצים פיצה אמיתית – רוצים אותה מהר! לכן פיתחנו מערכת משלוחים מתקדמת שמבטיחה שהפיצה שלכם תגיע אליכם חמה, טרייה וטעימה בדיוק כמו ברגע שיצאה מהתנור.</p>
+        <div class="about-bullets">
+          <div class="about-bullet"><Fragment set:html={check} /> משלוח עד הבית (ראשל"צ בלבד)</div>
+          <div class="about-bullet"><Fragment set:html={check} /> משלוח תוך 60 דקות</div>
+        </div>
+      </div>
+      <div class="about-features">
+        <div class="about-feature"><div class="f-title">בצק טרי יום יום</div><div class="f-desc">נילושה בבוקר ומתפחת במשך 24 שעות למרקם מושלם</div></div>
+        <div class="about-feature"><div class="f-title">רוטב עגבניות ביתי</div><div class="f-desc">מבושל לאט עם תבלינים איטלקיים אותנטיים</div></div>
+        <div class="about-feature"><div class="f-title">גבינת מוצרלה פרימיום</div><div class="f-desc">טרייה מדי יום עם המסה מושלמת</div></div>
+      </div>
+    </div>
+
+    <div class="about-block">
+      <div>
+        <p class="about-kicker">Made with Love</p>
+        <h2>אנחנו מכינים את הפיצה <em>הטובה ביותר בעיר</em></h2>
+        <p>פיצה לואיז נוסדה מתוך אהבה אמיתית לפיצה ניו יורקית ורצון להביא לישראל את הטעמים האותנטיים של מנהטן וברוקלין. כל פיצה מוכנת בקפדנות מקסימלית, מהעיסה שנילושה בבוקר ועד לתוספות הטריות שמגיעות מידי יום.</p>
+      </div>
+      <img class="about-img" src="/assets/gallery-bar.jpeg" alt="פיצה לואיז" loading="lazy" />
+    </div>
+
+    <div class="about-stats">
+      <div class="about-stat"><div class="num">12</div><div class="lbl">אנשי צוות לשירותכם</div></div>
+      <div class="about-stat"><div class="num">35</div><div class="lbl">הזמנות בשעה</div></div>
+      <div class="about-stat"><div class="num">25</div><div class="lbl">סוגי פיצה</div></div>
+      <div class="about-stat"><div class="num">15,000</div><div class="lbl">לקוחות מרוצים</div></div>
+    </div>
+  </section>
+</Site>
