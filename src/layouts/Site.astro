@@ -34,6 +34,7 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogAbs} />
 
+  <link rel="preload" as="image" href="/assets/hero.jpeg" fetchpriority="high" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -261,8 +262,10 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     .about-block h2 { font-size: 30px; }
   }
 
-  /* custom basil cursor (basil2.png scaled to 32px) */
-  * { cursor: url('/assets/basil-cursor.png') 2 2, auto !important; }
+  /* custom basil cursor — on body only, so links/buttons keep pointer and inputs keep text */
+  body { cursor: url('/assets/basil-cursor.png') 2 2, auto; }
+  a, button, [role="button"], .pizza-card, .size-btn, .topping-btn, .pv-quad, label, summary { cursor: url('/assets/basil-cursor.png') 2 2, pointer; }
+  input, textarea, select { cursor: text; }
 
   .toast { position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%); background: #241D17; border: 1px solid rgba(226,112,58,0.5); color: #F0E7D8; font-size: 14.5px; font-weight: 600; padding: 12px 24px; border-radius: 999px; z-index: 100; box-shadow: 0 12px 36px rgba(0,0,0,0.5); animation: ecFadeUp 0.25s ease both; }
 

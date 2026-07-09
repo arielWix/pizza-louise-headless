@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://z2exbl-pizza-loui-9356204c-arielh47.wix-site-host.com/sitemap.xml

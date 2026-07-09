@@ -47,9 +47,11 @@ const FALLBACK = {
 };
 
 let _cache = null;
+let _cacheAt = 0;
+const CACHE_TTL_MS = 5 * 60 * 1000; // refresh a long-lived worker's copy every 5 min
 
 export async function getCatalog() {
-  if (_cache) return _cache;
+  if (_cache && Date.now() - _cacheAt < CACHE_TTL_MS) return _cache;
   try {
     const [menusRes, sectionsRes, itemsRes, variantsRes, modifiersRes, groupsRes, opsRes] = await Promise.all([
       menus.listMenus(), sections.listSections(), items.listItems(),
@@ -102,6 +104,7 @@ export async function getCatalog() {
       pizzas,
       toppings: toppings.length ? toppings : FALLBACK.toppings,
     };
+    _cacheAt = Date.now();
     return _cache;
   } catch (err) {
     console.warn('[pizza-louise] catalog fetch failed, using fallback:', err && err.message);
