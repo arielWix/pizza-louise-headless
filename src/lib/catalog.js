@@ -7,8 +7,8 @@ const entId = (x) => x && (x._id ?? x.id);
 const PIZZA_META = {
   'מרגריטה 1889': { slug: 'margherita-1889', image: '/assets/pizza-margherita.jpg' },
   'שרומיז': { slug: 'shroomiz', image: '/assets/pizza-shroomiz.jpg' },
-  'ברנרד': { slug: 'bernard', image: null },
-  'ולואיז': { slug: 'velouise', image: null },
+  'ברנרד': { slug: 'bernard', image: '/assets/bernard.png'  },
+  'ולואיז': { slug: 'velouise', image: '/assets/velouise.png' },
   'החמאה של גרייבר': { slug: 'graiber-butter', image: '/assets/pizza-tomato-butter.jpg' },
   'המתעתעת': { slug: 'mitatat', image: '/assets/pizza-mitatat.jpg' },
   'הים תיכונית': { slug: 'mediterranean', image: '/assets/pizza-mediterranean.jpg' },

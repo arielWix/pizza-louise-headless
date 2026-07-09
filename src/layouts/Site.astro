@@ -46,13 +46,13 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
 <header class="nav">
   <div class="nav-start">
-    <a class="nav-brand" href="/">
+    <a class="nav-brand" href="/about">
       <img src="/assets/logo.png" alt="פיצה לואיז" width="44" height="44" />
       <div class="name">פיצה לואיז</div>
     </a>
     <nav class="nav-links" aria-label="ראשי">
-      <a href="/">תפריט</a>
       <a href="/about">הסיפור שלנו</a>
+      <a href="/">תפריט</a>
     </nav>
   </div>
   <button class="cart-pill" id="cart-pill" title="לתשלום" type="button">
@@ -233,7 +233,9 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
   /* ===== ABOUT ===== */
   .about-section { max-width: 1280px; margin: 0 auto; padding: 72px 48px 96px; }
+  .about-eyebrow { text-align: center; }
   .about-h1 { font-family: 'Frank Ruhl Libre', serif; font-weight: 700; font-size: 44px; margin: 0 0 8px; text-align: center; }
+  .about-h1 em { color: var(--accent); font-style: normal; }
   .about-lede { text-align: center; color: #B4A692; font-size: 17px; max-width: 60ch; margin: 0 auto 12px; }
   .about-kicker { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; color: var(--accent); border: 1px solid rgba(226,112,58,0.35); padding: 7px 16px; border-radius: 999px; margin: 0 0 20px; }
   .about-block { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: center; padding: 48px 0; }
