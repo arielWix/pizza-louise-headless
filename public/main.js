@@ -21,8 +21,8 @@ const RING_RAD = { TL: '100% 0 0 0', TR: '0 100% 0 0', BL: '0 0 0 100%', BR: '0 
 const PIZZA_META = {
   'מרגריטה 1889': { key: 'margherita-1889', image: 'assets/pizza-margherita.jpg', placeholder: 'מרגריטה 1889' },
   'שרומיז': { key: 'shroomiz', image: 'assets/pizza-shroomiz.jpg', placeholder: 'שרומיז' },
-  'ברנרד': { key: 'bernard', image: null, placeholder: 'ברנרד' },
-  'ולואיז': { key: 'velouise', image: null, placeholder: 'ולואיז' },
+  'ברנרד': { key: 'bernard', image: 'assets/bernard.png', placeholder: 'ברנרד' },
+  'ולואיז': { key: 'velouise', image: 'assets/velouise.png', placeholder: 'ולואיז' },
   'החמאה של גרייבר': { key: 'graiber-butter', image: 'assets/pizza-tomato-butter.jpg', placeholder: 'החמאה של גרייבר' },
   'המתעתעת': { key: 'mitatat', image: 'assets/pizza-mitatat.jpg', placeholder: 'המתעתעת' },
   'הים תיכונית': { key: 'mediterranean', image: 'assets/pizza-mediterranean.jpg', placeholder: 'הים תיכונית' },
@@ -323,7 +323,7 @@ function renderAbout() {
           <h2>אנחנו מכינים את הפיצה <em>הטובה ביותר בעיר</em></h2>
           <p>פיצה לואיז נוסדה מתוך אהבה אמיתית לפיצה ניו יורקית ורצון להביא לישראל את הטעמים האותנטיים של מנהטן וברוקלין. כל פיצה מוכנת בקפדנות מקסימלית, מהעיסה שנילושה בבוקר ועד לתוספות הטריות שמגיעות מידי יום.</p>
         </div>
-        <img class="about-img" src="assets/gallery-bar.jpeg" alt="פיצה לואיז" loading="lazy">
+        <img class="about-img" src="assets/fotter-2.jpg" alt="פיצה לואיז" loading="lazy">
       </div>
       <div class="about-stats">
         <div class="about-stat"><div class="num">12</div><div class="lbl">אנשי צוות לשירותכם</div></div>

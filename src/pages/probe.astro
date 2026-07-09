@@ -1,0 +1,22 @@
+---
+import { menus, sections, items } from '@wix/restaurants';
+let result = { ok: false, error: null, menus: 0, sections: 0, items: 0, names: [] };
+try {
+  const [m, s, i] = await Promise.all([
+    menus.listMenus(),
+    sections.listSections(),
+    items.listItems(),
+  ]);
+  result = {
+    ok: true,
+    error: null,
+    menus: (m.menus || []).length,
+    sections: (s.sections || []).length,
+    items: (i.items || []).length,
+    names: (i.items || []).map((x) => x.name),
+  };
+} catch (e) {
+  result.error = String(e && e.message ? e.message : e).slice(0, 300);
+}
+---
+<pre id="probe">{JSON.stringify(result, null, 2)}</pre>
