@@ -45,8 +45,8 @@ const jsonLd = {
 
   <section class="menu-section" id="menu">
     <div class="menu-grid">
-      {catalog.pizzas.map((p) => (
-        <a class="pizza-card" href={`/pizza/${p.slug}`}>
+      {catalog.pizzas.map((p, i) => (
+        <a class="pizza-card" href={`/pizza/${p.slug}`} data-reveal style={`--reveal-delay:${(i % 3) * 90}ms`}>
           <div class="img-wrap">
             {p.image ? (
               <img src={p.image} alt={p.name} loading="lazy" />
@@ -73,9 +73,9 @@ const jsonLd = {
     </div>
 
     <div class="gallery">
-      <img src="/assets/fotter-1.jpg" alt="קינוחים מהתנור של פיצה לואיז" loading="lazy" />
-      <img src="/assets/fotter-2.jpg" alt="מאפה שוקולד" loading="lazy" />
-      <img src="/assets/fotter-3.jpg" alt="הבר של פיצה לואיז" loading="lazy" />
+      <img src="/assets/fotter-1.jpg" alt="קינוחים מהתנור של פיצה לואיז" loading="lazy" data-reveal style="--reveal-delay:0ms" />
+      <img src="/assets/fotter-2.jpg" alt="מאפה שוקולד" loading="lazy" data-reveal style="--reveal-delay:90ms" />
+      <img src="/assets/fotter-3.jpg" alt="הבר של פיצה לואיז" loading="lazy" data-reveal style="--reveal-delay:180ms" />
     </div>
   </section>
 </Site>

@@ -47,6 +47,36 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   {jsonLdArray.map((obj) => (
     <script type="application/ld+json" set:html={JSON.stringify(obj)} />
   ))}
+
+  {/* Scroll-reveal: self-contained + inline so it arms BEFORE first paint (no
+      flash of visible-then-hidden). Only arms when motion is allowed and
+      IntersectionObserver exists — otherwise images render normally (no-JS /
+      reduced-motion safe). Uses opacity+transform only, so zero layout shift. */}
+  <script is:inline>
+    (function () {
+      try {
+        if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+        document.documentElement.classList.add('reveal-ready');
+        var start = function () {
+          var io = new IntersectionObserver(function (entries) {
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              var el = e.target;
+              el.classList.add('is-visible');
+              // once the fly-in finishes, drop the animation so hover transforms work
+              el.addEventListener('animationend', function () { el.classList.add('reveal-done'); }, { once: true });
+              io.unobserve(el);
+            });
+          }, { rootMargin: '0px 0px -18% 0px', threshold: 0.01 }); // fire ~18% up from the viewport bottom
+          document.querySelectorAll('[data-reveal]').forEach(function (el) { io.observe(el); });
+        };
+        if (document.readyState !== 'loading') start();
+        else document.addEventListener('DOMContentLoaded', start);
+      } catch (err) {
+        document.documentElement.classList.remove('reveal-ready'); // fail safe: show everything
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -145,6 +175,17 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   @keyframes ecPop { 0% { transform: scale(0.4); opacity: 0; } 70% { transform: scale(1.12); } 100% { transform: scale(1); opacity: 1; } }
   @keyframes ambFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-24px) rotate(9deg); } }
 
+  /* ===== SCROLL-REVEAL (fly-in) ===== opacity + transform only → no layout shift.
+     Armed by an inline head script only when motion is allowed + IO is supported;
+     otherwise [data-reveal] elements stay fully visible. */
+  @keyframes revealFly { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+  .reveal-ready [data-reveal] { opacity: 0; will-change: opacity, transform; }
+  .reveal-ready [data-reveal].is-visible { animation: revealFly 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms) both; }
+  .reveal-ready [data-reveal].reveal-done { opacity: 1; transform: none; animation: none; will-change: auto; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal-ready [data-reveal] { opacity: 1 !important; transform: none !important; animation: none !important; }
+  }
+
   /* ===== AMBIENT LAYER (decorative, non-interactive, behind everything) ===== */
   .ambient { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
   .amb { position: absolute; aspect-ratio: 1; opacity: 0.08; will-change: transform; animation: ambFloat 26s ease-in-out infinite; }
@@ -181,7 +222,7 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
   .section-head { text-align: center; margin: 8px 0 30px; }
   .section-head h2 { font-family: 'Frank Ruhl Libre', serif; font-weight: 900; font-size: 36px; margin: 0; color: var(--ink); }
   .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 28px; }
-  .pizza-card { display: block; color: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; cursor: pointer; transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease; animation: ecFadeUp 0.5s ease both; box-shadow: var(--shadow-sm); }
+  .pizza-card { display: block; color: inherit; background: var(--surface); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; cursor: pointer; transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease; box-shadow: var(--shadow-sm); }
   .pizza-card:hover { color: inherit; transform: translateY(-4px); border-color: var(--ring); box-shadow: var(--shadow-md); }
   .pizza-card .img-wrap { position: relative; height: 210px; background: var(--surface-2); overflow: hidden; }
   .pizza-card .img-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s cubic-bezier(0.22,1,0.36,1); transform-origin: center; }
