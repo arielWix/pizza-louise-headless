@@ -77,4 +77,23 @@ const jsonLd = [
       <div class="about-stat"><div class="num">15,000</div><div class="lbl">לקוחות מרוצים</div></div>
     </div>
   </section>
+
+  {/* Scroll-driven image sequence extracted from the brick-oven video */}
+  <section id="oven" class="oven" aria-label="פיצה לואיז — מהתנור">
+    <div class="oven-sticky">
+      <div class="oven-frame">
+        <canvas id="oven-canvas"></canvas>
+        <div class="oven-cap">
+          <p class="oven-kicker">מהתנור</p>
+          <h2 class="oven-title">72 שעות בצק, <em>רגע של אש</em></h2>
+          <p class="oven-sub">תנור אבן לוהט — כאן נולד הקראנץ' המושלם. גללו כדי לראות.</p>
+        </div>
+      </div>
+    </div>
+  </section>
 </Site>
+
+<script>
+  import { initOvenSequence } from '../scripts/oven-sequence.js';
+  initOvenSequence();
+</script>
