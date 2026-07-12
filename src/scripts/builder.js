@@ -1,5 +1,5 @@
 import { TOPPING_ART, QUADS, QUAD_NAME, scatterFor, money } from '../lib/art.js';
-import { getClient, refreshCartLabel, toast } from './cart.js';
+import { getClient, refreshCartLabel, markCartActive, toast } from './cart.js';
 
 const ORDERS_APP_ID = '9a5d83fd-8570-482e-81ab-cfa88942ee60';
 const RING_POS = { TL: ['0%', '0%'], TR: ['50%', '0%'], BL: ['0%', '50%'], BR: ['50%', '50%'] };
@@ -134,6 +134,7 @@ export function initBuilder() {
       await getClient().currentCart.addToCurrentCart({
         lineItems: [{ quantity: 1, catalogReference: { catalogItemId: pz.itemId, appId: ORDERS_APP_ID, options } }],
       });
+      markCartActive();
       await refreshCartLabel();
       toast('המגש נוסף לסל 🍕');
       state.quads = { TL: [], TR: [], BL: [], BR: [] };

@@ -27,9 +27,20 @@ export function toast(msg) {
   setTimeout(() => el.remove(), 2600);
 }
 
+// Set once something was actually added, so fresh visitors don't hit the
+// carts/current endpoint (which 404s when no cart exists and pollutes the console).
+const CART_FLAG = 'pl-cart';
+export function markCartActive() {
+  try { localStorage.setItem(CART_FLAG, '1'); } catch { /* private mode */ }
+}
+function cartMaybeExists() {
+  try { return localStorage.getItem(CART_FLAG) === '1'; } catch { return true; }
+}
+
 export async function refreshCartLabel() {
   const el = document.getElementById('cart-label');
   if (!el) return;
+  if (!cartMaybeExists()) { el.textContent = 'סל · ריק'; return; }
   try {
     const cart = await getClient().currentCart.getCurrentCart();
     const lis = cart?.lineItems || [];

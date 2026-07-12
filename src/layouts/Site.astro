@@ -7,7 +7,9 @@ const {
   jsonLd = null,
 } = Astro.props;
 
-const origin = Astro.url.origin;
+// Behind Wix's TLS-terminating proxy Astro.url resolves http:// — force https so
+// our canonical matches the one Wix injects (conflicting canonicals fail SEO audits).
+const origin = Astro.url.origin.replace(/^http:/, 'https:');
 const canonical = new URL(canonicalPath, origin).href;
 const ogAbs = new URL(ogImage, origin).href;
 const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
@@ -42,7 +44,10 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
       paint and don't flash a fallback font on a cold mobile visit. */}
   <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/frankruhllibre/v23/j8_w6_fAw7jrcalD7oKYNX0QfAnPW7Ll4brkiY-xBg.woff2" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="https://fonts.gstatic.com/s/assistant/v24/2sDcZGJYnIjSi6H75xkzamW5Kb8VZBHR.woff2" />
-  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  {/* Load the font CSS async (print→all swap) — it was the only render-blocking
+      request (~900ms). The two woff2 preloads above keep text from flashing. */}
+  <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Assistant:wght@400;500;600;700&display=swap" rel="stylesheet" /></noscript>
 
   {jsonLdArray.map((obj) => (
     <script type="application/ld+json" set:html={JSON.stringify(obj)} />
@@ -152,7 +157,7 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 <header class="nav">
   <div class="nav-start">
     <a class="nav-brand" href="/">
-      <img src="/assets/logo.png" alt="פיצה לואיז" width="44" height="44" />
+      <img src="/assets/logo-96.png" alt="פיצה לואיז" width="44" height="44" />
       <div class="name">פיצה לואיז</div>
     </a>
     <nav class="nav-links" aria-label="ראשי">
@@ -172,7 +177,7 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 
 <footer class="footer">
   <div class="footer-brand">
-    <img src="/assets/logo.png" alt="פיצה לואיז" width="36" height="36" />
+    <img src="/assets/logo-96.png" alt="פיצה לואיז" width="36" height="36" loading="lazy" />
     <div class="name">פיצה לואיז</div>
   </div>
   <div>כשר חלבי · פתוח א'–ה' 11:00–23:00, מוצ"ש עד חצות</div>
