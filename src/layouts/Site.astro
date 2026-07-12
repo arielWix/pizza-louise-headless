@@ -451,7 +451,7 @@ const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     .oven-stage { padding: 80px 18px; }
     .oven-stats { grid-template-columns: repeat(2, 1fr); }
     .oven-features { flex-direction: column; align-items: stretch; }
-    .oven-feat { max-width: 100%; text-align: center; }
+    .oven-feat { flex: 0 0 auto; max-width: 100%; text-align: center; }  /* in a column, 1 1 200px becomes a 200px-tall grow basis */
   }
   @media (max-width: 900px) {
     .about-section { padding: 48px 20px 72px; }
